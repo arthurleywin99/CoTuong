@@ -1,0 +1,3 @@
+﻿[
+	{"id": "tuongdo", "src":"Images/TuongDo.png", "top":833, "left":833, "visible": "inline"}
+]
