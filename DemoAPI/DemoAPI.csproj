@@ -225,8 +225,8 @@
     <Content Include="Images\TotDen.png" />
     <Content Include="Images\TotDo.png" />
     <Content Include="Images\TuongDen.png" />
-    <Content Include="Images\TuongDen1.png" />
-    <Content Include="Images\TuongDo1.png" />
+    <Content Include="Images\TuongDen_.png" />
+    <Content Include="Images\TuongDo_.png" />
     <Content Include="Images\TuongDo.png" />
     <Content Include="Images\XeDen.png" />
     <Content Include="Images\XeDo.png" />
