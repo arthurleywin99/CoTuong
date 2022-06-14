@@ -23,7 +23,6 @@
 </style>
 
 
-
 <div id="app">
     <div class="chessboard">
         <div v-for="item in chessNode" v-if="item !== null">
@@ -62,7 +61,8 @@
             total: 0,
             students: [],
             classRoom: '',
-            chessNode: []
+            chessNode: [],
+            pos: {},
         },
         methods: {
             getTotal() {
@@ -98,26 +98,187 @@
         updated: function () {
             $(".chessnode").draggable({
                 start: function (event, ui) {
-
+                    this.pos = ui.helper.position();
                 },
                 drag: function () {
-
+                    
                 },
                 stop: function (event, ui) {
-                    //console.log('x=' + ui.position.top + '  y=' + ui.position.left);
+                    console.log('top=' + ui.position.top + '  left=' + ui.position.left);
+
+                    let x = this.pos.top;
+                    let y = this.pos.left;
+                    const pos = ui.position;
+
+                    switch (ui.helper.attr('id')) {
+                        case 'xedo1': {
+                            if (pos.left < -10 || pos.left > 595 || pos.top > 8 || pos.top < -675) {
+                                $('#xedo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'xedo2': {
+                            if (pos.left < -585 || pos.left > 15 || pos.top > 8 || pos.top < -675) {
+                                $('#xedo2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'phaodo1': {
+                            if (pos.left < -80 || pos.left > 520 || pos.top > 160 || pos.top < -530) {
+                                $('#phaodo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'phaodo2': {
+                            if (pos.left < -525 || pos.left > 80 || pos.top > 160 || pos.top < -530) {
+                                $('#phaodo2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'mado1': {
+                            if (pos.left < -80 || pos.left > 515 || pos.top > 5 || pos.top < -675) {
+                                $('#mado1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'mado2': {
+                            if (pos.left < -520 || pos.left > 75 || pos.top > 5 || pos.top < -675) {
+                                $('#mado2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'tuongdo': {
+                            if (pos.left < -80 || pos.left > 80 || pos.top < -155 || pos.top > 5) {
+                                $('#tuongdo').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'sido1': {
+                            if (pos.left < -5 || pos.left > 155 || pos.top < -160 || pos.top > 5) {
+                                $('#sido1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'sido2': {
+                            if (pos.left < -155 || pos.left > 5 || pos.top > 5 || pos.top < -155) {
+                                $('#sido2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'tuongdo1': {
+                            if (pos.left < -160 || pos.left > 445 || pos.top > 5 || pos.top < -305) {
+                                $('#tuongdo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'tuongdo2': {
+                            if (pos.left < -445 || pos.left > 155 || pos.top > 5 || pos.top < -305) {
+                                $('#tuongdo2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'totdo1': {
+                            if (pos.left < -10 || pos.left > 585 || pos.top > 5 || pos.top < -455) {
+                                $('#totdo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'totdo2': {
+                            if (pos.left < -150 || pos.left > 440 || pos.top > 5 || pos.top < -455) {
+                                $('#totdo2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'totdo3': {
+                            if (pos.left < -295 || pos.left > 295 || pos.top > 5 || pos.top < -455) {
+                                $('#totdo3').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'totdo4': {
+                            if (pos.left < -440 || pos.left > 150 || pos.top > 5 || pos.top < -455) {
+                                $('#totdo4').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'totdo5': {
+                            if (pos.left < -580 || pos.left > 10 || pos.top > 5 || pos.top < -455) {
+                                $('#totdo5').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'xeden1': {
+                            if (pos.left < 0 || pos.left > 585 || pos.top < -5 || pos.top > 670) {
+                                $('#xeden1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'xeden2': {
+                            if (pos.left < -585 || pos.left > 5 || pos.top < -5 || pos.top > 670) {
+                                $('#xeden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'phaoden1': {
+                            if (pos.left < -75 || pos.left > 515 || pos.top < -150 || pos.top > 525) {
+                                $('#phaoden1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'phaoden2': {
+                            if (pos.left < -515 || pos.left > 75 || pos.top < -150 || pos.top > 525) {
+                                $('#phaoden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'maden1': {
+                            if (pos.left < -75 || pos.left > 515 || pos.top < -10 || pos.top > 675) {
+                                $('#maden1').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                        case 'maden2': {
+                            if (pos.left < -515 || pos.left > 75 || pos.top < -10 || pos.top > 675) {
+                                $('#maden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            break;
+                        }
+                    }                    
+
                     var movelist = [{ id: this.id, top: ui.position.top, left: ui.position.left, visible: true }];
 
                     var res = axios.post('/api/chess/movenode', movelist).then(response => {
-                        //this.chessRoom = response.data.data;
+                        this.chessRoom = response.data.data;
                         //alert(response);
-
                     })
                         .catch(error => {
                             console.log(error)
                         })
                         .finally();
 
-                }
+                },
             });
         },
         mounted: function () {
@@ -126,7 +287,7 @@
 
             });
             chat.client.postToClient = function (data) {
-                //$('#discussion').append('Message' + data + '<br />');
+                $('#discussion').append('Message' + data + '<br />');
 
                 var result = [];
                 result = JSON.parse(data);
@@ -135,7 +296,7 @@
                     node.css({ 'top': result[i].top + 'px' });
                     node.css({ 'left': result[i].left + 'px' });
                     node.css({ 'display': result[i].visible });
-                    //node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible});
+                    node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible});
                     break;
                 }
             };

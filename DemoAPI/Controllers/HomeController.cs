@@ -27,7 +27,7 @@ namespace DemoAPI.Controllers
             _dbContext.Student.Add(st);
             _dbContext.SaveChanges();
             */
-            insertRoom();
+            //insertRoom();
 
 
             return View();
