@@ -14,5 +14,7 @@ namespace Lib.Entities
         [Key]
         public Guid Id { get; set; }
         public string  Name { get; set; }
+        public string Password { get; set; }
+        public int JoinedCount { get; set; }
     }
 }

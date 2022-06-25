@@ -1,0 +1,22 @@
+﻿@model DemoAPI.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm("Login", "User"))
+    {
+        <div>
+            <div class="mb-md-3">
+                <div>Tên Đăng Nhập</div>
+                @Html.TextBoxFor(p => p.Username, new { @class = "form-control", type = "text" })
+            </div>
+            <div class="mb-md-3">
+                <div>Mật Khẩu</div>
+                @Html.TextBoxFor(p => p.Password, new { @class = "form-control", type = "password" })
+            </div>
+            <button class="btn btn-warning" type="submit">Đăng nhập</button>
+        </div>
+    }
+</div>

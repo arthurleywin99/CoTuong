@@ -23,46 +23,65 @@
 </style>
 
 
-<div id="app">
-    <div class="chessboard">
-        <div v-for="item in chessNode" v-if="item !== null">
-            <div :id="item.id" class="chessnode">
-                <img :src="'/' + item.src" class="chessimgnode" v-bind:style="{ display: item.visible, top: item.top + 'px', left: item.left + 'px'}" />
+<div class="container">
+    <div id="app">
+        <div class="chessboard">
+            <div v-for="item in chessNode" v-if="item !== null">
+                <div :id="item.id" class="chessnode">
+                    <img :src="'/' + item.src" class="chessimgnode" v-bind:style="{ display: item.visible, top: item.top + 'px', left: item.left + 'px'}" />
+                </div>
             </div>
         </div>
-    </div>
-    {{ message }}
-    total record: {{total}}
-    <input v-on:click="getTotal" type="button" value="get total" />
-    List Student
-    <ul id="demo">
-        <li v-for="item in students" v-if="item !== null">
-            {{item.Id}} {{item.Name}}
-        </li>
-    </ul>
+        {{ message }}
+        total record: {{total}}
+        <input v-on:click="getTotal" type="button" value="get total" />
+        List Student
+        <ul id="demo">
+            <li v-for="item in students" v-if="item !== null">
+                {{item.Id}} {{item.Name}}
+            </li>
+        </ul>
 
-    class room
-    name: <input v-model="classRoom" type="text" value="" />
-    class room name: {{classRoom}}
+        class room
+        name: <input v-model="classRoom" type="text" value="" />
+        class room name: {{classRoom}}
 
-    <input v-on:click="insertClassRoom" type="button" value="insert Class Room" />
+        <input v-on:click="insertClassRoom" type="button" value="insert Class Room" />
 
-    <div>
-        <ul id="discussion"></ul>
+        <div>
+            <ul id="discussion"></ul>
+        </div>
     </div>
 </div>
 <script>
     var stObject = {};
+    const xeDo1 = [105, 410], xeDen1 = [900, 405];
+    const maDo1 = [155, 135], maDen1 = [955, 135];
+    const tuongDo1 = [205, 405], tuongDen1 = [1005, 135];
+    const siDo1 = [255, 405], siDen1 = [1055, 135];
+    const tuongDo = [305, 405], tuongDen = [1105, 405];
+    const siDo2 = [355, 405], siDen2 = [1155, 135];
+    const tuongDo2 = [405, 405], tuongDen2 = [1205, 130];
+    const maDo2 = [455, 135], maDen2 = [1255, 135];
+    const xeDo2 = [505, 410], xeDen2 = [1305, 410];
+    const phaoDo1 = [550, 405], phaoDen1 = [1360, 405];
+    const phaoDo2 = [605, 405], phaoDen2 = [1405, 405];
+    const totDo1 = [655, 135], totDen1 = [1455, 135];
+    const totDo2 = [700, 135], totDen2 = [1505, 135];
+    const totDo3 = [750, 135], totDen3 = [1555, 135];
+    const totDo4 = [800, 135], totDen4 = [1605, 135];
+    const totDo5 = [850, 135], totDen5 = [1655, 135];
 
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue! 112',
+            message: 'Hello Vue!',
             total: 0,
             students: [],
             classRoom: '',
             chessNode: [],
             pos: {},
+            oldPos: {}
         },
         methods: {
             getTotal() {
@@ -99,21 +118,47 @@
             $(".chessnode").draggable({
                 start: function (event, ui) {
                     this.pos = ui.helper.position();
+                    this.oldPos = ui.position;
                 },
                 drag: function () {
-                    
+
                 },
                 stop: function (event, ui) {
-                    console.log('top=' + ui.position.top + '  left=' + ui.position.left);
+                    //console.log('top=' + ui.position.top + '  left=' + ui.position.left);
 
                     let x = this.pos.top;
                     let y = this.pos.left;
+
                     const pos = ui.position;
 
                     switch (ui.helper.attr('id')) {
                         case 'xedo1': {
                             if (pos.left < -10 || pos.left > 595 || pos.top > 8 || pos.top < -675) {
                                 $('#xedo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+
+                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) > 35) {
+                                    Y = this.oldPos.left > 0 ? this.oldPos.left - (this.oldPos.left % 73) : -(Math.abs(this.oldPos.left) - Math.abs(this.oldPos.left % 73));
+                                }
+                                else {
+                                    if (Math.abs(Math.abs(pos.left)) % 73 > 35) {
+                                        Y = pos.left > 0 ? pos.left - (pos.left % 73) + 73 : -(Math.abs(pos.left) - Math.abs(pos.left % 73)) - 73;
+                                    }
+                                    else {
+                                        Y = Y = pos.left > 0 ? pos.left - (pos.left % 73) : -(Math.abs(pos.left) - Math.abs(pos.left % 73));
+                                    }
+                                }
+                                if (Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) > 35) {
+                                    X = this.oldPos.top > 0 ? this.oldPos.top - (this.oldPos.top % 73) : -(Math.abs(this.oldPos.top) - Math.abs(this.oldPos.top % 73));
+                                }
+                                else {
+                                    X = pos.top > 0 ? pos.top - (pos.top % 73) : -(Math.abs(pos.top) - Math.abs(pos.top % 73));
+                                }
+
+                                $('#xedo1').offset({ top: X + xeDo1[0], left: Y + xeDo1[1] });
                                 return;
                             }
                             break;
@@ -123,6 +168,25 @@
                                 $('#xedo2').offset({ top: x, left: y });
                                 return;
                             }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 75 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 75) * 75 : -(Math.ceil(Math.abs(pos.left) / 75) * 75);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 75) * 75 : -(Math.floor(Math.abs(pos.left) / 75) * 75);
+                                }
+
+                                $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'phaodo1': {
@@ -130,11 +194,49 @@
                                 $('#phaodo1').offset({ top: x, left: y });
                                 return;
                             }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#phaodo1').offset({ top: X + phaoDo1[0], left: Y + phaoDo1[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'phaodo2': {
                             if (pos.left < -525 || pos.left > 80 || pos.top > 160 || pos.top < -530) {
                                 $('#phaodo2').offset({ top: x, left: y });
+                                return;
+                            }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#phaodo2').offset({ top: X + phaoDo2[0], left: Y + phaoDo2[1] });
                                 return;
                             }
                             break;
@@ -158,11 +260,55 @@
                                 $('#tuongdo').offset({ top: x, left: y });
                                 return;
                             }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#tuongdo').offset({ top: X + tuongDo[0], left: Y + tuongDo[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'sido1': {
-                            if (pos.left < -5 || pos.left > 155 || pos.top < -160 || pos.top > 5) {
+                            if (pos.left < -5 || pos.left > 155 || pos.top < -160 || pos.top > 0) {
                                 $('#sido1').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 25
+                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 25) {
+                                    X = this.oldPos.top - (this.oldPos.top % 75);
+                                    Y = this.oldPos.left - (this.oldPos.left % 75);
+                                }
+                                else {
+                                    if (this.oldPos.top > pos.top) {
+                                        X = (this.oldPos.top - (this.oldPos.top % 75)) - 75;
+                                    }
+                                    else {
+                                        X = (this.oldPos.top - (this.oldPos.top % 75)) + 75;
+                                    }
+                                    if (this.oldPos.left > pos.left) {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) - 75;
+                                    }
+                                    else {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) + 75;
+                                    }
+                                }
+
+                                $('#sido1').offset({ top: X + siDo1[0], left: Y + siDo1[1] });
                                 return;
                             }
                             break;
@@ -172,11 +318,61 @@
                                 $('#sido2').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 25
+                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 25) {
+                                    X = this.oldPos.top - (this.oldPos.top % 75);
+                                    Y = this.oldPos.left - (this.oldPos.left % 75);
+                                }
+                                else {
+                                    if (this.oldPos.top > pos.top) {
+                                        X = (this.oldPos.top - (this.oldPos.top % 75)) - 75;
+                                    }
+                                    else {
+                                        X = (this.oldPos.top - (this.oldPos.top % 75)) + 75;
+                                    }
+                                    if (this.oldPos.left > pos.left) {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) - 75;
+                                    }
+                                    else {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) + 75;
+                                    }
+                                }
+
+                                $('#sido2').offset({ top: X + siDo2[0], left: Y + siDo2[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'tuongdo1': {
                             if (pos.left < -160 || pos.left > 445 || pos.top > 5 || pos.top < -305) {
                                 $('#tuongdo1').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 55
+                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 55) {
+                                    X = this.oldPos.top - (this.oldPos.top % 146);
+                                    Y = this.oldPos.left - (this.oldPos.left % 146);
+                                }
+                                else {
+                                    if (this.oldPos.top > pos.top) {
+                                        X = (this.oldPos.top - (this.oldPos.top % 146)) - 146;
+                                    }
+                                    else {
+                                        X = (this.oldPos.top - (this.oldPos.top % 146)) + 146;
+                                    }
+                                    if (this.oldPos.left > pos.left) {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) - 146;
+                                    }
+                                    else {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) + 146;
+                                    }
+                                }
+
+                                $('#tuongdo1').offset({ top: X + tuongDo1[0], left: Y + tuongDo1[1] });
                                 return;
                             }
                             break;
@@ -186,12 +382,40 @@
                                 $('#tuongdo2').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 55
+                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 55) {
+                                    X = this.oldPos.top - (this.oldPos.top % 146);
+                                    Y = this.oldPos.left - (this.oldPos.left % 146);
+                                }
+                                else {
+                                    if (this.oldPos.top > pos.top) {
+                                        X = (this.oldPos.top - (this.oldPos.top % 146)) - 146;
+                                    }
+                                    else {
+                                        X = (this.oldPos.top - (this.oldPos.top % 146)) + 146;
+                                    }
+                                    if (this.oldPos.left > pos.left) {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) - 146;
+                                    }
+                                    else {
+                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) + 146;
+                                    }
+                                }
+
+                                $('#tuongdo2').offset({ top: X + tuongDo2[0], left: Y + tuongDo2[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'totdo1': {
                             if (pos.left < -10 || pos.left > 585 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo1').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+
                             }
                             break;
                         }
@@ -203,6 +427,15 @@
                             break;
                         }
                         case 'totdo3': {
+                            let ceilX = Math.ceil(Math.abs(pos.top) / 75) * 75;
+                            if (pos.top < 0) {
+                                ceilX = -ceilX;
+                            }
+                            let ceilY = Math.ceil(Math.abs(pos.left) / 75) * 75;
+                            if (pos.left < 0) {
+                                ceilY = -ceilY;
+                            }
+                            $('#totdo3').offset({ top: ceilX, left: ceilY });
                             if (pos.left < -295 || pos.left > 295 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo3').offset({ top: x, left: y });
                                 return;
@@ -228,11 +461,49 @@
                                 $('#xeden1').offset({ top: x, left: y });
                                 return;
                             }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#xeden1').offset({ top: X + xeDen1[0], left: Y + xeDen1[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'xeden2': {
                             if (pos.left < -585 || pos.left > 5 || pos.top < -5 || pos.top > 670) {
                                 $('#xeden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#xeden2').offset({ top: X + xeDen2[0], left: Y + xeDen2[1] });
                                 return;
                             }
                             break;
@@ -242,11 +513,49 @@
                                 $('#phaoden1').offset({ top: x, left: y });
                                 return;
                             }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#phaoden1').offset({ top: X + phaoDen1[0], left: Y + phaoDen1[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'phaoden2': {
                             if (pos.left < -515 || pos.left > 75 || pos.top < -150 || pos.top > 525) {
                                 $('#phaoden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#phaoden2').offset({ top: X + phaoDen2[0], left: Y + phaoDen2[1] });
                                 return;
                             }
                             break;
@@ -264,10 +573,29 @@
                                 return;
                             }
                             break;
-                        }  
+                        }
                         case 'tuongden': {
                             if (pos.left < -75 || pos.left > 75 || pos.top < -10 || pos.top > 150) {
                                 $('#tuongden').offset({ top: x, left: y });
+                                return;
+                            }
+                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                                let X = 0, Y = 0;
+                                if (Math.abs(pos.top) % 75 > 35) {
+                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                }
+                                else {
+                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                }
+
+                                if (Math.abs(pos.left) % 73 > 35) {
+                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                }
+                                else {
+                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                }
+
+                                $('#tuongden').offset({ top: X + tuongDen[0], left: Y + tuongDen[1] });
                                 return;
                             }
                             break;
@@ -335,7 +663,7 @@
                             }
                             break;
                         }
-                    }                    
+                    }
 
                     var movelist = [{ id: this.id, top: ui.position.top, left: ui.position.left, visible: true }];
 
@@ -366,7 +694,7 @@
                     node.css({ 'top': result[i].top + 'px' });
                     node.css({ 'left': result[i].left + 'px' });
                     node.css({ 'display': result[i].visible });
-                    node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible});
+                    node.css({ 'top': result[i].top + 'px, left: ' + result[i].left + 'px, display:' + result[i].visible });
                     break;
                 }
             };

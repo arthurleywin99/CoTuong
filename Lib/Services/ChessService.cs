@@ -21,10 +21,26 @@ namespace Lib.Services
         public void Save() {
             unitOfWork.Commit();
         }
-        public void insertRoom(Room r) {
-            roomRepository.Add(r);
+        public void createRoom(Room r) {
+            roomRepository.createRoom(r);
             Save();
         }
+
+        public bool checkRoom(Guid Id, string password)
+        {
+            return roomRepository.checkRoom(Id, password);
+        }
+
+        public bool isFull(Guid Id)
+        {
+            return roomRepository.isFull(Id);
+        }
+
+        public void increaseRoomMember(Guid Id)
+        {
+            roomRepository.increaseRoomMember(Id);
+        }
+
         public List<Room> getAllRoom() {
             return roomRepository.GetAllRooms();
         }

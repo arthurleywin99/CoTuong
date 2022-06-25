@@ -1,4 +1,5 @@
 ﻿using DemoAPI.Models;
+using DemoAPI.ViewModels;
 using Lib.Entities;
 using Lib.Services;
 using System;
@@ -20,7 +21,8 @@ namespace DemoAPI.Controllers.api
             Room r = new Room();
             r.Id = Guid.NewGuid();
             r.Name = rmodel.RoomName;
-            chessService.insertRoom(r);
+            r.JoinedCount = 0;
+            chessService.createRoom(r);
             return
             Json(new
             {
@@ -28,18 +30,45 @@ namespace DemoAPI.Controllers.api
                // data = stList //_dbContext.Student.OrderBy(s=>s.Id).Skip(2).Take(3).ToList() //Where(s=>s.Id == Guid.Parse(id)).FirstOrDefault()
             }, JsonRequestBehavior.AllowGet);
         }
-        [Route("api/chess/getrooms")]
+
         [HttpGet]
-        public ActionResult getallroom()
+        public ActionResult CreateRoom()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateRoom(RoomViewModel viewModel)
+        {
+            Room room = new Room
+            {
+                Id = Guid.NewGuid(),
+                Name = viewModel.Name,
+                JoinedCount = 0,
+                Password = viewModel.Password,
+            };
+            chessService.createRoom(room);
+            return RedirectToAction("GetAllRoom", "Chess");
+        }
+        
+        [HttpGet]
+        public ActionResult GetAllRoom()
         {
             List<Room> roomList = chessService.getAllRoom();
-            return
-            Json(new
+            List<RoomViewModel> roomModels = new List<RoomViewModel>();
+            foreach(var item in roomList)
             {
-                message = "success",
-                data = roomList //_dbContext.Student.OrderBy(s=>s.Id).Skip(2).Take(3).ToList() //Where(s=>s.Id == Guid.Parse(id)).FirstOrDefault()
-            }, JsonRequestBehavior.AllowGet);
+                RoomViewModel model = new RoomViewModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    JoinedCount = item.JoinedCount
+                };
+                roomModels.Add(model);
+            }
+            return View(roomModels);
         }
+
         [Route("api/chess/getchessnode")]
         [HttpPost]
         public ActionResult getAllNode(List<MoveModel> movelist)
@@ -62,7 +91,6 @@ namespace DemoAPI.Controllers.api
             return Json(new
             {
                 message = "success"
-
             }, JsonRequestBehavior.AllowGet);
         }
     }

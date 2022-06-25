@@ -11,12 +11,9 @@ namespace DemoAPI.Controllers
 {
     public class HomeController : Controller
     {
-        StudentService stService = new StudentService();
         ChessService chessService = new ChessService();
         public ActionResult Index()
         {
-            
-           
             ViewBag.Title = "Home Page";
             /*ApplicationDbContext _dbContext;
             _dbContext = new ApplicationDbContext();
@@ -31,12 +28,6 @@ namespace DemoAPI.Controllers
 
 
             return View();
-        }
-        public void insertRoom() {
-            Room r = new Room();
-            r.Id = Guid.NewGuid();
-            r.Name = "test";
-            chessService.insertRoom(r);
         }
     }
 }
