@@ -55,22 +55,31 @@
 </div>
 <script>
     var stObject = {};
-    const xeDo1 = [105, 410], xeDen1 = [900, 405];
+    const xeDo1 = [105, 410], xeDen1 = [905, 405];
     const maDo1 = [155, 135], maDen1 = [955, 135];
-    const tuongDo1 = [205, 405], tuongDen1 = [1005, 135];
-    const siDo1 = [255, 405], siDen1 = [1055, 135];
+    const tuongDo1 = [205, 405], tuongDen1 = [1005, 405];
+    const siDo1 = [255, 405], siDen1 = [1055, 405];
     const tuongDo = [305, 405], tuongDen = [1105, 405];
-    const siDo2 = [355, 405], siDen2 = [1155, 135];
-    const tuongDo2 = [405, 405], tuongDen2 = [1205, 130];
+    const siDo2 = [355, 405], siDen2 = [1155, 405];
+    const tuongDo2 = [405, 405], tuongDen2 = [1205, 405];
     const maDo2 = [455, 135], maDen2 = [1255, 135];
-    const xeDo2 = [505, 410], xeDen2 = [1305, 410];
-    const phaoDo1 = [550, 405], phaoDen1 = [1360, 405];
+    const xeDo2 = [505, 405], xeDen2 = [1305, 405];
+    const phaoDo1 = [555, 405], phaoDen1 = [1360, 405];
     const phaoDo2 = [605, 405], phaoDen2 = [1405, 405];
-    const totDo1 = [655, 135], totDen1 = [1455, 135];
-    const totDo2 = [700, 135], totDen2 = [1505, 135];
-    const totDo3 = [750, 135], totDen3 = [1555, 135];
-    const totDo4 = [800, 135], totDen4 = [1605, 135];
-    const totDo5 = [850, 135], totDen5 = [1655, 135];
+    const totDo1 = [655, 405], totDen1 = [1455, 405];
+    const totDo2 = [700, 405], totDen2 = [1505, 405];
+    const totDo3 = [755, 405], totDen3 = [1555, 405];
+    const totDo4 = [800, 405], totDen4 = [1605, 405];
+    const totDo5 = [850, 405], totDen5 = [1655, 405];
+
+    function LamTron(a, b) {
+        let temp = Math.abs(a);
+        let temp2 = Math.abs(b);
+        while (temp >= temp2) {
+            temp -= temp2;
+        }
+        return Math.abs(a) - temp;
+    }
 
     var app = new Vue({
         el: '#app',
@@ -140,22 +149,27 @@
                             else {
                                 let X = 0, Y = 0;
 
-                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) > 35) {
-                                    Y = this.oldPos.left > 0 ? this.oldPos.left - (this.oldPos.left % 73) : -(Math.abs(this.oldPos.left) - Math.abs(this.oldPos.left % 73));
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
                                 }
                                 else {
-                                    if (Math.abs(Math.abs(pos.left)) % 73 > 35) {
-                                        Y = pos.left > 0 ? pos.left - (pos.left % 73) + 73 : -(Math.abs(pos.left) - Math.abs(pos.left % 73)) - 73;
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
                                     }
                                     else {
-                                        Y = Y = pos.left > 0 ? pos.left - (pos.left % 73) : -(Math.abs(pos.left) - Math.abs(pos.left % 73));
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
                                     }
                                 }
-                                if (Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) > 35) {
-                                    X = this.oldPos.top > 0 ? this.oldPos.top - (this.oldPos.top % 73) : -(Math.abs(this.oldPos.top) - Math.abs(this.oldPos.top % 73));
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    X = pos.top > 0 ? pos.top - (pos.top % 73) : -(Math.abs(pos.top) - Math.abs(pos.top % 73));
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#xedo1').offset({ top: X + xeDo1[0], left: Y + xeDo1[1] });
@@ -168,20 +182,29 @@
                                 $('#xedo2').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? LamTron(this.oldPos.left, 71) + 71 : -LamTron(this.oldPos.left, 71) - 71;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
+                                    }
                                 }
-
-                                if (Math.abs(pos.left) % 75 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 75) * 75 : -(Math.ceil(Math.abs(pos.left) / 75) * 75);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 75) * 75 : -(Math.floor(Math.abs(pos.left) / 75) * 75);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
@@ -194,22 +217,30 @@
                                 $('#phaodo1').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
+                                    }
                                 }
-
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
-
                                 $('#phaodo1').offset({ top: X + phaoDo1[0], left: Y + phaoDo1[1] });
                                 return;
                             }
@@ -220,22 +251,30 @@
                                 $('#phaodo2').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
+                                    }
                                 }
-
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
-
                                 $('#phaodo2').offset({ top: X + phaoDo2[0], left: Y + phaoDo2[1] });
                                 return;
                             }
@@ -260,20 +299,33 @@
                                 $('#tuongdo').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                if (Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#tuongdo').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    }
                                 }
-
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    }
                                 }
 
                                 $('#tuongdo').offset({ top: X + tuongDo[0], left: Y + tuongDo[1] });
@@ -288,26 +340,14 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 25
-                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 25) {
+                                if (Math.abs(this.oldPos.top - pos.top) < 25 || Math.abs(this.oldPos.left - pos.left) < 25) {
                                     X = this.oldPos.top - (this.oldPos.top % 75);
                                     Y = this.oldPos.left - (this.oldPos.left % 75);
                                 }
                                 else {
-                                    if (this.oldPos.top > pos.top) {
-                                        X = (this.oldPos.top - (this.oldPos.top % 75)) - 75;
-                                    }
-                                    else {
-                                        X = (this.oldPos.top - (this.oldPos.top % 75)) + 75;
-                                    }
-                                    if (this.oldPos.left > pos.left) {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) - 75;
-                                    }
-                                    else {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) + 75;
-                                    }
+                                    X = this.oldPos.top > pos.top ? (this.oldPos.top - (this.oldPos.top % 75)) - 75 : (this.oldPos.top - (this.oldPos.top % 75)) + 75;
+                                    Y = this.oldPos.left > pos.left ? (this.oldPos.left - (this.oldPos.left % 75)) - 75 : (this.oldPos.left - (this.oldPos.left % 75)) + 75;
                                 }
-
                                 $('#sido1').offset({ top: X + siDo1[0], left: Y + siDo1[1] });
                                 return;
                             }
@@ -320,24 +360,13 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 25
-                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 25) {
+                                if (Math.abs(this.oldPos.top - pos.top) < 25 || Math.abs(this.oldPos.left - pos.left) < 25) {
                                     X = this.oldPos.top - (this.oldPos.top % 75);
                                     Y = this.oldPos.left - (this.oldPos.left % 75);
                                 }
                                 else {
-                                    if (this.oldPos.top > pos.top) {
-                                        X = (this.oldPos.top - (this.oldPos.top % 75)) - 75;
-                                    }
-                                    else {
-                                        X = (this.oldPos.top - (this.oldPos.top % 75)) + 75;
-                                    }
-                                    if (this.oldPos.left > pos.left) {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) - 75;
-                                    }
-                                    else {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 75)) + 75;
-                                    }
+                                    X = this.oldPos.top > pos.top ? (this.oldPos.top - (this.oldPos.top % 75)) - 75 : (this.oldPos.top - (this.oldPos.top % 75)) + 75;
+                                    Y = this.oldPos.left > pos.left ? (this.oldPos.left - (this.oldPos.left % 75)) - 75 : (this.oldPos.left - (this.oldPos.left % 75)) + 75;
                                 }
 
                                 $('#sido2').offset({ top: X + siDo2[0], left: Y + siDo2[1] });
@@ -352,24 +381,13 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 55
-                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 55) {
+                                if (Math.abs(this.oldPos.top - pos.top) < 55 || Math.abs(this.oldPos.left - pos.left) < 55) {
                                     X = this.oldPos.top - (this.oldPos.top % 146);
                                     Y = this.oldPos.left - (this.oldPos.left % 146);
                                 }
                                 else {
-                                    if (this.oldPos.top > pos.top) {
-                                        X = (this.oldPos.top - (this.oldPos.top % 146)) - 146;
-                                    }
-                                    else {
-                                        X = (this.oldPos.top - (this.oldPos.top % 146)) + 146;
-                                    }
-                                    if (this.oldPos.left > pos.left) {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) - 146;
-                                    }
-                                    else {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) + 146;
-                                    }
+                                    X = this.oldPos.top > pos.top ? (this.oldPos.top - (this.oldPos.top % 146)) - 146 : (this.oldPos.top - (this.oldPos.top % 146)) + 146;
+                                    Y = this.oldPos.left > pos.left ? (this.oldPos.left - (this.oldPos.left % 146)) - 146 : (this.oldPos.left - (this.oldPos.left % 146)) + 146;
                                 }
 
                                 $('#tuongdo1').offset({ top: X + tuongDo1[0], left: Y + tuongDo1[1] });
@@ -384,24 +402,13 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(Math.abs(this.oldPos.top) - Math.abs(pos.top)) < 55
-                                    || Math.abs(Math.abs(this.oldPos.left) - Math.abs(pos.left)) < 55) {
+                                if (Math.abs(this.oldPos.top - pos.top) < 55 || Math.abs(this.oldPos.left - pos.left) < 55) {
                                     X = this.oldPos.top - (this.oldPos.top % 146);
                                     Y = this.oldPos.left - (this.oldPos.left % 146);
                                 }
                                 else {
-                                    if (this.oldPos.top > pos.top) {
-                                        X = (this.oldPos.top - (this.oldPos.top % 146)) - 146;
-                                    }
-                                    else {
-                                        X = (this.oldPos.top - (this.oldPos.top % 146)) + 146;
-                                    }
-                                    if (this.oldPos.left > pos.left) {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) - 146;
-                                    }
-                                    else {
-                                        Y = (this.oldPos.left - (this.oldPos.left % 146)) + 146;
-                                    }
+                                    X = this.oldPos.top > pos.top ? (this.oldPos.top - (this.oldPos.top % 146)) - 146 : (this.oldPos.top - (this.oldPos.top % 146)) + 146;
+                                    Y = this.oldPos.left > pos.left ? (this.oldPos.left - (this.oldPos.left % 146)) - 146 : (this.oldPos.left - (this.oldPos.left % 146)) + 146;
                                 }
 
                                 $('#tuongdo2').offset({ top: X + tuongDo2[0], left: Y + tuongDo2[1] });
@@ -415,7 +422,48 @@
                                 return;
                             }
                             else {
+                                if (this.oldPos.top < pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totdo1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top > -135) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totdo1').offset({ top: totDo1[0] - 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totdo1').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                        Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.left)) % 71 > 35) {
+                                            Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                        else {
+                                            Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.top)) % 75 > 35) {
+                                            X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                        else {
+                                            X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                    }
 
+                                    $('#totdo1').offset({ top: X + totDo1[0], left: Y + totDo1[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -424,21 +472,100 @@
                                 $('#totdo2').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top < pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totdo2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top > -135) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totdo2').offset({ top: totDo2[0] - 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totdo2').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                        Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.left)) % 71 > 35) {
+                                            Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                        else {
+                                            Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.top)) % 75 > 35) {
+                                            X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                        else {
+                                            X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                    }
+
+                                    $('#totdo2').offset({ top: X + totDo2[0], left: Y + totDo2[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'totdo3': {
-                            let ceilX = Math.ceil(Math.abs(pos.top) / 75) * 75;
-                            if (pos.top < 0) {
-                                ceilX = -ceilX;
-                            }
-                            let ceilY = Math.ceil(Math.abs(pos.left) / 75) * 75;
-                            if (pos.left < 0) {
-                                ceilY = -ceilY;
-                            }
-                            $('#totdo3').offset({ top: ceilX, left: ceilY });
                             if (pos.left < -295 || pos.left > 295 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo3').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                if (this.oldPos.top < pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totdo3').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top > -135) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totdo3').offset({ top: totDo3[0] - 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totdo3').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                        Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.left)) % 71 > 35) {
+                                            Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                        else {
+                                            Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.top)) % 75 > 35) {
+                                            X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                        else {
+                                            X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                    }
+
+                                    $('#totdo3').offset({ top: X + totDo3[0], left: Y + totDo3[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -447,12 +574,100 @@
                                 $('#totdo4').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top < pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totdo4').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top > -135) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totdo4').offset({ top: totDo4[0] - 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totdo4').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                        Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.left)) % 71 > 35) {
+                                            Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                        else {
+                                            Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.top)) % 75 > 35) {
+                                            X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                        else {
+                                            X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                    }
+
+                                    $('#totdo4').offset({ top: X + totDo4[0], left: Y + totDo4[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'totdo5': {
                             if (pos.left < -580 || pos.left > 10 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo5').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                if (this.oldPos.top < pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totdo5').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top > -135) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totdo5').offset({ top: totDo5[0] - 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totdo5').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                        Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.left)) % 71 > 35) {
+                                            Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                        else {
+                                            Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    }
+                                    else {
+                                        if (Math.abs(Math.abs(pos.top)) % 75 > 35) {
+                                            X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                        else {
+                                            X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                        }
+                                    }
+
+                                    $('#totdo5').offset({ top: X + totDo5[0], left: Y + totDo5[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -461,20 +676,31 @@
                                 $('#xeden1').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 75 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
+                                    }
                                 }
 
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) + 75 : -LamTron(this.oldPos.top, 75) - 75;
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#xeden1').offset({ top: X + xeDen1[0], left: Y + xeDen1[1] });
@@ -487,20 +713,31 @@
                                 $('#xeden2').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 75 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
+                                    }
                                 }
 
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) + 75 : -LamTron(this.oldPos.top, 75) - 75;
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#xeden2').offset({ top: X + xeDen2[0], left: Y + xeDen2[1] });
@@ -513,20 +750,31 @@
                                 $('#phaoden1').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left) % 75 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
+                                    }
                                 }
 
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#phaoden1').offset({ top: X + phaoDen1[0], left: Y + phaoDen1[1] });
@@ -539,20 +787,30 @@
                                 $('#phaoden2').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
-                                }
-                                else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
-                                }
 
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left > 0 ? this.oldPos.left : -this.oldPos.left;
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.left) % 75 > 35) {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
+                                    }
+                                    else {
+                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
+                                    }
+                                }
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top > 0 ? this.oldPos.top : -this.oldPos.top;
+                                }
+                                else {
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+                                    }
+                                    else {
+                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                    }
                                 }
 
                                 $('#phaoden2').offset({ top: X + phaoDen2[0], left: Y + phaoDen2[1] });
@@ -579,20 +837,35 @@
                                 $('#tuongden').offset({ top: x, left: y });
                                 return;
                             }
-                            if (Math.abs(pos.top) % 75 !== 0 || Math.abs(pos.left) % 73 !== 0) {
+                            else {
+                                if (Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#tuongden').offset({ top: x, left: y });
+                                    return;
+                                }
                                 let X = 0, Y = 0;
-                                if (Math.abs(pos.top) % 75 > 35) {
-                                    X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
+
+                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
+                                    Y = this.oldPos.left;
                                 }
                                 else {
-                                    X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
+                                    if (Math.abs(pos.left - this.oldPos.left) > 35) {
+                                        Y = pos.left > this.oldPos.left ? (Math.ceil(this.oldPos.left / 75) * 75) + 75 : (Math.ceil(this.oldPos.left / 75) * 75) - 75;
+                                    }
+                                    else {
+                                        Y = this.oldPos.left;
+                                    }
                                 }
 
-                                if (Math.abs(pos.left) % 73 > 35) {
-                                    Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
+                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                    X = this.oldPos.top;
                                 }
                                 else {
-                                    Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        X = pos.top > this.oldPos.top ? (Math.ceil(this.oldPos.top / 75) * 75) + 75 : (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                    }
+                                    else {
+                                        X = this.oldPos.top;
+                                    }
                                 }
 
                                 $('#tuongden').offset({ top: X + tuongDen[0], left: Y + tuongDen[1] });
@@ -601,15 +874,70 @@
                             break;
                         }
                         case 'siden1': {
-                            if (pos.left < -5 || pos.left > 5 || pos.top < -5 || pos.top > 150) {
+                            if (pos.left < -5 || pos.left > 155 || pos.top < -5 || pos.top > 150) {
                                 $('#siden1').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(this.oldPos.top - pos.top) < 25 || Math.abs(this.oldPos.left - pos.left) < 25) {
+                                    $('#siden1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    if (this.oldPos.top < pos.top) {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
+                                            Y = this.oldPos.left + 75;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
+                                            Y = this.oldPos.left - 75;
+                                        }
+                                    }
+                                    else {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                            Y = this.oldPos.left + 75;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                            Y = this.oldPos.left - 75;
+                                        }
+                                    }
+                                }
+                                $('#siden1').offset({ top: X + siDen1[0], left: Y + siDen1[1] });
                                 return;
                             }
                             break;
                         }
                         case 'siden2': {
-                            if (pos.left < -155 || pos.left > 155 || pos.top < -5 || pos.top > 150) {
+                            if (pos.left < -155 || pos.left > 0 || pos.top < -5 || pos.top > 150) {
                                 $('#siden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                if (this.oldPos.top < pos.top) {
+                                    if (this.oldPos.left < pos.left) {
+                                        X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
+                                        Y = this.oldPos.left + 75;
+                                    }
+                                    else {
+                                        X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
+                                        Y = this.oldPos.left - 75;
+                                    }
+                                }
+                                else {
+                                    if (this.oldPos.left < pos.left) {
+                                        X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                        Y = this.oldPos.left + 75;
+                                    }
+                                    else {
+                                        X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                        Y = this.oldPos.left - 75;
+                                    }
+                                }
+                                $('#siden2').offset({ top: X + siDen2[0], left: Y + siDen2[1] });
                                 return;
                             }
                             break;
@@ -619,11 +947,73 @@
                                 $('#tuongden1').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(this.oldPos.top - pos.top) < 75 || Math.abs(this.oldPos.left - pos.left) < 75) {
+                                    $('#tuongden1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    if (this.oldPos.top < pos.top) {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
+                                            Y = this.oldPos.left + 150;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
+                                            Y = this.oldPos.left - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
+                                            Y = this.oldPos.left + 150;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
+                                            Y = this.oldPos.left - 150;
+                                        }
+                                    }
+                                }
+                                $('#tuongden1').offset({ top: X + tuongDen1[0], left: Y + tuongDen1[1] });
+                                return;
+                            }
                             break;
                         }
                         case 'tuongden2': {
                             if (pos.left < -445 || pos.left > 150 || pos.top < -10 || pos.top > 295) {
                                 $('#tuongden2').offset({ top: x, left: y });
+                                return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+                                if (Math.abs(this.oldPos.top - pos.top) < 75 || Math.abs(this.oldPos.left - pos.left) < 75) {
+                                    $('#tuongden2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    if (this.oldPos.top < pos.top) {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
+                                            Y = this.oldPos.left + 150;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
+                                            Y = this.oldPos.left - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (this.oldPos.left < pos.left) {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
+                                            Y = this.oldPos.left + 150;
+                                        }
+                                        else {
+                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
+                                            Y = this.oldPos.left - 150;
+                                        }
+                                    }
+                                }
+                                $('#tuongden2').offset({ top: X + tuongDen2[0], left: Y + tuongDen2[1] });
                                 return;
                             }
                             break;
@@ -633,12 +1023,100 @@
                                 $('#totden1').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totden1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top < 75) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totden1').offset({ top: totDen1[0] + 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totden1').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
+                                        Y = this.oldPos.left;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
+                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
+                                        }
+                                        else {
+                                            Y = this.oldPos.left;
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = Math.ceil(this.oldPos.top / 75) * 75;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
+                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                    }
+
+                                    $('#totden1').offset({ top: X + totDen1[0], left: Y + totDen1[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'totden2': {
                             if (pos.left < -150 || pos.left > 440 || pos.top < -10 || pos.top > 450) {
                                 $('#totden2').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totden2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top < 75) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totden2').offset({ top: totDen2[0] + 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totden2').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
+                                        Y = this.oldPos.left;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
+                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
+                                        }
+                                        else {
+                                            Y = this.oldPos.left;
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = Math.ceil(this.oldPos.top / 75) * 75;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
+                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                    }
+
+                                    $('#totden2').offset({ top: X + totDen2[0], left: Y + totDen2[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -647,6 +1125,50 @@
                                 $('#totden3').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totden3').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top < 75) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totden3').offset({ top: totDen3[0] + 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totden3').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
+                                        Y = this.oldPos.left;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
+                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
+                                        }
+                                        else {
+                                            Y = this.oldPos.left;
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = Math.ceil(this.oldPos.top / 75) * 75;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
+                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                    }
+
+                                    $('#totden3').offset({ top: X + totDen3[0], left: Y + totDen3[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'totden4': {
@@ -654,12 +1176,100 @@
                                 $('#totden4').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totden4').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top < 75) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totden4').offset({ top: totDen4[0] + 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totden4').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
+                                        Y = this.oldPos.left;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
+                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
+                                        }
+                                        else {
+                                            Y = this.oldPos.left;
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = Math.ceil(this.oldPos.top / 75) * 75;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
+                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                    }
+
+                                    $('#totden4').offset({ top: X + totDen4[0], left: Y + totDen4[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'totden5': {
                             if (pos.left < -580 || pos.left > 10 || pos.top < -10 || pos.top > 450) {
                                 $('#totden5').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
+                                    $('#totden5').offset({ top: x, left: y });
+                                    return;
+                                }
+                                if (pos.top < 75) {
+                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
+                                        $('#totden5').offset({ top: totDen5[0] + 75, left: y });
+                                        return;
+                                    }
+                                    else {
+                                        $('#totden5').offset({ top: x, left: y });
+                                        return;
+                                    }
+                                }
+                                else {
+                                    let X = 0, Y = 0;
+                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
+                                        Y = this.oldPos.left;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
+                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
+                                        }
+                                        else {
+                                            Y = this.oldPos.left;
+                                        }
+                                    }
+                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
+                                        X = Math.ceil(this.oldPos.top / 75) * 75;
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
+                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75;
+                                        }
+                                    }
+
+                                    $('#totden5').offset({ top: X + totDen5[0], left: Y + totDen5[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
