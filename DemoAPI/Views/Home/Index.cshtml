@@ -56,13 +56,13 @@
 <script>
     var stObject = {};
     const xeDo1 = [105, 410], xeDen1 = [905, 405];
-    const maDo1 = [155, 135], maDen1 = [955, 135];
+    const maDo1 = [155, 405], maDen1 = [955, 405];
     const tuongDo1 = [205, 405], tuongDen1 = [1005, 405];
     const siDo1 = [255, 405], siDen1 = [1055, 405];
     const tuongDo = [305, 405], tuongDen = [1105, 405];
     const siDo2 = [355, 405], siDen2 = [1155, 405];
     const tuongDo2 = [405, 405], tuongDen2 = [1205, 405];
-    const maDo2 = [455, 135], maDen2 = [1255, 135];
+    const maDo2 = [455, 405], maDen2 = [1255, 405];
     const xeDo2 = [505, 405], xeDen2 = [1305, 405];
     const phaoDo1 = [555, 405], phaoDen1 = [1360, 405];
     const phaoDo2 = [605, 405], phaoDen2 = [1405, 405];
@@ -285,12 +285,122 @@
                                 $('#mado1').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                let X = 0, Y = 0;
+                                if (this.oldPos.top > pos.top) {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                    }
+                                }
+                                else {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                    }
+                                }
+                                if (Y == -150 || Y == 600 || X == 75 || X == -750) {
+                                    $('#mado1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    $('#mado1').offset({ top: X + maDo1[0], left: Y + maDo1[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'mado2': {
                             if (pos.left < -520 || pos.left > 75 || pos.top > 5 || pos.top < -675) {
                                 $('#mado2').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                let X = 0, Y = 0;
+                                if (this.oldPos.top > pos.top) {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                    }
+                                }
+                                else {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                    }
+                                }
+                                if (X == 75 || X == -750 || Y == -600 || Y == 150) {
+                                    $('#mado2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    $('#mado2').offset({ top: X + maDo2[0], left: Y + maDo2[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -823,12 +933,120 @@
                                 $('#maden1').offset({ top: x, left: y });
                                 return;
                             }
+                            else {
+                                if (this.oldPos.top > pos.top) {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                    }
+                                }
+                                else {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                    }
+                                }
+                                if (X == -75 || X == 750 || Y == -150 || Y == 600) {
+                                    $('#maden1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    $('#maden1').offset({ top: X + maDen1[0], left: Y + maDen1[1] });
+                                    return;
+                                }
+                            }
                             break;
                         }
                         case 'maden2': {
                             if (pos.left < -515 || pos.left > 75 || pos.top < -10 || pos.top > 675) {
                                 $('#maden2').offset({ top: x, left: y });
                                 return;
+                            }
+                            else {
+                                if (this.oldPos.top > pos.top) {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) > 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 - 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                    }
+                                }
+                                else {
+                                    if (this.oldPos.left > pos.left) {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 - 75;
+                                        }
+                                    }
+                                    else {
+                                        if (Math.abs(pos.top - this.oldPos.top) < 75) {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 75;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 150;
+                                        }
+                                        else {
+                                            X = Math.ceil(this.oldPos.top / 75) * 75 + 150;
+                                            Y = Math.ceil(this.oldPos.left / 75) * 75 + 75;
+                                        }
+                                    }
+                                }
+                                if (X == -75 || X == 750 || Y == 150 || Y == -600) {
+                                    $('#maden2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else {
+                                    $('#maden2').offset({ top: X + maDen2[0], left: Y + maDen2[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -1019,7 +1237,7 @@
                             break;
                         }
                         case 'totden1': {
-                            if (pos.left < -10 || pos.left > 595 || pos.top < -10 || pos.top > 450) {
+                            if (pos.left < -20 || pos.left > 595 || pos.top < -10 || pos.top > 460) {
                                 $('#totden1').offset({ top: x, left: y });
                                 return;
                             }
@@ -1070,7 +1288,7 @@
                             break;
                         }
                         case 'totden2': {
-                            if (pos.left < -150 || pos.left > 440 || pos.top < -10 || pos.top > 450) {
+                            if (pos.left < -160 || pos.left > 440 || pos.top < -10 || pos.top > 460) {
                                 $('#totden2').offset({ top: x, left: y });
                                 return;
                             }
@@ -1121,7 +1339,7 @@
                             break;
                         }
                         case 'totden3': {
-                            if (pos.left < -295 || pos.left > 300 || pos.top < -10 || pos.top > 450) {
+                            if (pos.left < -300 || pos.left > 300 || pos.top < -10 || pos.top > 460) {
                                 $('#totden3').offset({ top: x, left: y });
                                 return;
                             }
@@ -1172,7 +1390,7 @@
                             break;
                         }
                         case 'totden4': {
-                            if (pos.left < -440 || pos.left > 150 || pos.top < -10 || pos.top > 450) {
+                            if (pos.left < -450 || pos.left > 150 || pos.top < -10 || pos.top > 460) {
                                 $('#totden4').offset({ top: x, left: y });
                                 return;
                             }
@@ -1223,7 +1441,7 @@
                             break;
                         }
                         case 'totden5': {
-                            if (pos.left < -580 || pos.left > 10 || pos.top < -10 || pos.top > 450) {
+                            if (pos.left < -590 || pos.left > 10 || pos.top < -10 || pos.top > 460) {
                                 $('#totden5').offset({ top: x, left: y });
                                 return;
                             }
