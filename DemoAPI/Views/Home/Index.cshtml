@@ -529,8 +529,9 @@
                                 }
                             }
                             if (!isExist) {
-                                this.CoTheDi.push([ngangCu][viTriTuongDen]);
+                                this.CoTheDi.push([viTriTuongDen][ngangCu]);
                             }
+                            break;
                         }
                         case 'sido1': {
                             let docCu = Math.round(this.oldPos.top / 75) + 9;
@@ -1032,6 +1033,828 @@
                                     }
                                     else {
                                         if (String(BanCo[docCu][ngangCu + 1]).includes("den")) {
+                                            this.CoTheDi.push([docCu, ngangCu + 1]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'xeden1': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 0;
+
+                            let temp = 0;
+                            // Trên
+                            temp = docCu;
+                            if (temp - 1 >= 0) {
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Dưới
+                            temp = docCu;
+                            if (temp + 1 <= 9) {
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Phải
+                            temp = ngangCu;
+                            if (temp + 1 <= 9) {
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    this.CoTheDi.push([docCu, i]);
+                                    if (BanCo[docCu][i] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Trái
+                            temp = ngangCu;
+                            if (temp - 1 >= 0) {
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    this.CoTheDi.push([docCu, i]);
+                                    if (BanCo[docCu][i] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'xeden2': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 8;
+
+                            let temp = 0;
+                            // Trên
+                            temp = docCu;
+                            if (temp - 1 >= 0) {
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Dưới
+                            temp = docCu;
+                            if (temp + 1 <= 9) {
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Phải
+                            temp = ngangCu;
+                            if (temp + 1 <= 9) {
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    this.CoTheDi.push([docCu, i]);
+                                    if (BanCo[docCu][i] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            // Trái
+                            temp = ngangCu;
+                            if (temp - 1 >= 0) {
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    this.CoTheDi.push([docCu, i]);
+                                    if (BanCo[docCu][i] !== "") {
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'phaoden1': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 2;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 1;
+
+                            let temp = 0;
+
+                            // Trên
+                            temp = docCu;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (BanCo[i][ngangCu] === "") {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Dưới
+                            temp = docCu;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (BanCo[i][ngangCu] === "") {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Trái
+                            temp = ngangCu;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (BanCo[docCu][i] === "") {
+                                    this.CoTheDi.push([docCu, i]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Phải
+                            temp = ngangCu;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (BanCo[docCu][i] === "") {
+                                    this.CoTheDi.push([docCu, i]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Pháo ăn trên
+                            temp = docCu;
+                            let demTren = 0;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (String(BanCo[i][ngangCu]) !== "") {
+                                    demTren++;
+                                }
+                                if (demTren == 2) {
+                                    if (String(BanCo[i][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([i, ngangCu]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn dưới
+                            temp = docCu;
+                            let demDuoi = 0;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (String(BanCo[i][ngangCu]) !== "") {
+                                    demDuoi++;
+                                }
+                                if (demDuoi == 2) {
+                                    if (String(BanCo[i][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([i, ngangCu]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn trái
+                            temp = ngangCu;
+                            let demTrai = 0;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (String(BanCo[docCu][i]) !== "") {
+                                    demTrai++;
+                                }
+                                if (demTrai == 2) {
+                                    if (String(BanCo[docCu][i]).includes("do")) {
+                                        this.CoTheDi.push([docCu, i]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn phải
+                            temp = ngangCu;
+                            let demPhai = 0;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (String(BanCo[docCu][i]) !== "") {
+                                    demPhai++;
+                                }
+                                if (demPhai == 2) {
+                                    if (String(BanCo[docCu][i]).includes("do")) {
+                                        this.CoTheDi.push([docCu, i]);
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'phaoden2': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 2;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 7;
+
+                            let temp = 0;
+
+                            // Trên
+                            temp = docCu;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (BanCo[i][ngangCu] === "") {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Dưới
+                            temp = docCu;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (BanCo[i][ngangCu] === "") {
+                                    this.CoTheDi.push([i, ngangCu]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Trái
+                            temp = ngangCu;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (BanCo[docCu][i] === "") {
+                                    this.CoTheDi.push([docCu, i]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Phải
+                            temp = ngangCu;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (BanCo[docCu][i] === "") {
+                                    this.CoTheDi.push([docCu, i]);
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // Pháo ăn trên
+                            temp = docCu;
+                            let demTren = 0;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (String(BanCo[i][ngangCu]) !== "") {
+                                    demTren++;
+                                }
+                                if (demTren == 2) {
+                                    if (String(BanCo[i][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([i, ngangCu]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn dưới
+                            temp = docCu;
+                            let demDuoi = 0;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (String(BanCo[i][ngangCu]) !== "") {
+                                    demDuoi++;
+                                }
+                                if (demDuoi == 2) {
+                                    if (String(BanCo[i][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([i, ngangCu]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn trái
+                            temp = ngangCu;
+                            let demTrai = 0;
+                            for (let i = temp - 1; i >= 0; --i) {
+                                if (String(BanCo[docCu][i]) !== "") {
+                                    demTrai++;
+                                }
+                                if (demTrai == 2) {
+                                    if (String(BanCo[docCu][i]).includes("do")) {
+                                        this.CoTheDi.push([docCu, i]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Pháo ăn phải
+                            temp = ngangCu;
+                            let demPhai = 0;
+                            for (let i = temp + 1; i <= 9; ++i) {
+                                if (String(BanCo[docCu][i]) !== "") {
+                                    demPhai++;
+                                }
+                                if (demPhai == 2) {
+                                    if (String(BanCo[docCu][i]).includes("do")) {
+                                        this.CoTheDi.push([docCu, i]);
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'tuongden': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 4;
+
+                            // Xuống
+                            if (docCu + 1 <= 2) {
+                                if (String(BanCo[docCu + 1][ngangCu]) !== "") {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                            }
+                            // Lên
+                            if (docCu - 1 >= 0) {
+                                if (String(BanCo[docCu - 1][ngangCu]) !== "") {
+                                    if (String(BanCo[docCu - 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu - 1, ngangCu]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu - 1, ngangCu]);
+                                }
+                            }
+                            // Trái
+                            if (ngangCu + 1 <= 5) {
+                                if (String(BanCo[docCu][ngangCu + 1]) !== "") {
+                                    if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu, ngangCu + 1]);
+                                }
+                            }
+                            // Phải
+                            if (ngangCu - 1 >= 3) {
+                                if (String(BanCo[docCu][ngangCu - 1]) !== "") {
+                                    if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu, ngangCu - 1]);
+                                }
+                            }
+                            // Kiểm tra lộ mặt tướng
+                            let viTriTuongDo = 0;
+                            for (let i = 3; i < 6; ++i) {
+                                if (String(BanCo[0][3]) === "tuongdo"
+                                    || String(BanCo[1][3]) === "tuongdo"
+                                    || String(BanCo[2][3]) === "tuongdo") {
+                                    viTriTuongDo = i;
+                                    break;
+                                }
+                            }
+                            let isExist = false;
+                            if (viTriTuongDo === ngangCu) {
+                                for (let i = viTriTuongDo - 1; i > ngangCu; --i) {
+                                    if (String(BanCo[i][ngangCu]) !== "") {
+                                        isExist = true;
+                                    }
+                                }
+                            }
+                            if (!isExist) {
+                                this.CoTheDi.push([viTriTuongDo][ngangCu]);
+                            }
+                            break;
+                        }
+                        case 'siden1': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 3;
+
+                            // Chéo Trên - Trái
+                            if ((docCu === 1 && ngangCu == 4) || (docCu === 2 && ngangCu === 5)) {
+                                if (String(BanCo[docCu - 1][ngangCu - 1]) !== "") {
+                                    if (String(BanCo[docCu - 1][ngangCu - 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu - 1, ngangCu - 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu - 1, ngangCu - 1]);
+                                }
+                            }
+
+                            // Chéo Trên - Phải
+                            if ((docCu === 2 && ngangCu === 3) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu - 1][ngangCu + 1]) !== "") {
+                                    if (String(BanCo[docCu - 1][ngangCu + 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu - 1, ngangCu + 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu - 1, ngangCu + 1]);
+                                }
+                            }
+
+                            // Chéo Dưới - Trái
+                            if ((docCu === 0 && ngangCu === 5) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu + 1][ngangCu - 1]) !== "") {
+                                    if (String(BanCo[docCu + 1][ngangCu - 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu - 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu + 1, ngangCu - 1]);
+                                }
+                            }
+
+                            // Chéo Dưới - Phải
+                            if ((docCu === 0 && ngangCu === 3) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu + 1][ngangCu + 1]) !== "") {
+                                    if (String(BanCo[docCu + 1][ngangCu + 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu + 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu + 1, ngangCu + 1]);
+                                }
+                            }
+                            break;
+                        }
+                        case 'siden2': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 5;
+
+                            // Chéo Trên - Trái
+                            if ((docCu === 1 && ngangCu == 4) || (docCu === 2 && ngangCu === 5)) {
+                                if (String(BanCo[docCu - 1][ngangCu - 1]) !== "") {
+                                    if (String(BanCo[docCu - 1][ngangCu - 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu - 1, ngangCu - 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu - 1, ngangCu - 1]);
+                                }
+                            }
+
+                            // Chéo Trên - Phải
+                            if ((docCu === 2 && ngangCu === 3) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu - 1][ngangCu + 1]) !== "") {
+                                    if (String(BanCo[docCu - 1][ngangCu + 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu - 1, ngangCu + 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu - 1, ngangCu + 1]);
+                                }
+                            }
+
+                            // Chéo Dưới - Trái
+                            if ((docCu === 0 && ngangCu === 5) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu + 1][ngangCu - 1]) !== "") {
+                                    if (String(BanCo[docCu + 1][ngangCu - 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu - 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu + 1, ngangCu - 1]);
+                                }
+                            }
+
+                            // Chéo Dưới - Phải
+                            if ((docCu === 0 && ngangCu === 3) || (docCu === 1 && ngangCu === 4)) {
+                                if (String(BanCo[docCu + 1][ngangCu + 1]) !== "") {
+                                    if (String(BanCo[docCu + 1][ngangCu + 1]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu + 1]);
+                                    }
+                                }
+                                else {
+                                    this.CoTheDi.push([docCu + 1, ngangCu + 1]);
+                                }
+                            }
+                            break;
+                        }
+                        case 'tuongden1': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 0;
+                            let ngangCu = Math.round(this.oldPos.left / 71) + 2;
+
+                            // Chéo trên trái
+                            if ((docCu === 4 && ngangCu === 2)
+                                || (docCu === 2 && ngangCu === 4)
+                                || (docCu === 4 && ngangCu === 6)
+                                || (docCu === 2 && ngangCu === 8)) {
+                                if (String(BanCo[docCu - 1][ngangCu - 1]) === "") {
+                                    if (String(BanCo[docCu - 2][ngangCu - 2]) === "") {
+                                        this.CoTheDi.push([docCu - 2, ngangCu - 2]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu - 2][ngangCu - 2]).includes("do")) {
+                                            this.CoTheDi.push([docCu - 2, ngangCu - 2]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Chéo trên phải
+                            if ((docCu === 2 && ngangCu === 0)
+                                || (docCu === 4 && ngangCu === 2)
+                                || (docCu === 2 && ngangCu === 4)
+                                || (docCu === 4 && ngangCu === 6)) {
+                                if (String(BanCo[docCu - 1][ngangCu + 1]) === "") {
+                                    if (String(BanCo[docCu - 2][ngangCu + 2]) === "") {
+                                        this.CoTheDi.push([docCu - 2, ngangCu + 2]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu - 2][ngangCu + 2]).includes("do")) {
+                                            this.CoTheDi.push([docCu - 2, ngangCu + 2]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Chéo dưới trái
+                            if ((docCu === 0 && ngangCu === 2)
+                                || (docCu === 0 && ngangCu === 6)
+                                || (docCu === 2 && ngangCu === 4)
+                                || (docCu === 2 && ngangCu === 8)) {
+                                if (String(BanCo[docCu + 1][ngangCu - 1]) === "") {
+                                    if (String(BanCo[docCu + 2][ngangCu - 2]) === "") {
+                                        this.CoTheDi.push([docCu + 2, ngangCu - 2]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 2][ngangCu - 2]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 2, ngangCu - 2]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Chéo dưới phải
+                            if ((docCu === 0 && ngangCu === 2)
+                                || (docCu === 0 && ngangCu === 6)
+                                || (docCu === 4 && ngangCu === 2)
+                                || (docCu === 2 && ngangCu === 4)) {
+                                if (String(BanCo[docCu + 1][ngangCu + 1]) === "") {
+                                    if (String(BanCo[docCu + 2][ngangCu + 2]) === "") {
+                                        this.CoTheDi.push([docCu + 2, ngangCu + 2]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 2][ngangCu + 2]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 2, ngangCu + 2]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+
+                        case 'totden1': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 3;
+                            let ngangCu = Math.round(this.oldPos.left / 73) + 0;
+                            if (docCu <= 4) {
+                                // Đi thẳng
+                                if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                                else {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                            }
+                            else {
+                                // Đi thẳng
+                                if (docCu + 1 <= 9) {
+                                    if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 1, ngangCu]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang trái
+                                if (ngangCu - 1 >= 0) {
+                                    if (String(BanCo[docCu][ngangCu - 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu - 1]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang phải
+                                if (ngangCu + 1 <= 8) {
+                                    if (String(BanCo[docCu][ngangCu + 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu + 1]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'totden2': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 3;
+                            let ngangCu = Math.round(this.oldPos.left / 73) + 2;
+                            if (docCu <= 4) {
+                                // Đi thẳng
+                                if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                                else {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                            }
+                            else {
+                                // Đi thẳng
+                                if (docCu + 1 <= 9) {
+                                    if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 1, ngangCu]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang trái
+                                if (ngangCu - 1 >= 0) {
+                                    if (String(BanCo[docCu][ngangCu - 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu - 1]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang phải
+                                if (ngangCu + 1 <= 8) {
+                                    if (String(BanCo[docCu][ngangCu + 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu + 1]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'totden3': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 3;
+                            let ngangCu = Math.round(this.oldPos.left / 73) + 4;
+                            if (docCu <= 4) {
+                                // Đi thẳng
+                                if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                                else {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                            }
+                            else {
+                                // Đi thẳng
+                                if (docCu + 1 <= 9) {
+                                    if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 1, ngangCu]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang trái
+                                if (ngangCu - 1 >= 0) {
+                                    if (String(BanCo[docCu][ngangCu - 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu - 1]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang phải
+                                if (ngangCu + 1 <= 8) {
+                                    if (String(BanCo[docCu][ngangCu + 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu + 1]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'totden4': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 3;
+                            let ngangCu = Math.round(this.oldPos.left / 73) + 6;
+                            if (docCu <= 4) {
+                                // Đi thẳng
+                                if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                                else {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                            }
+                            else {
+                                // Đi thẳng
+                                if (docCu + 1 <= 9) {
+                                    if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 1, ngangCu]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang trái
+                                if (ngangCu - 1 >= 0) {
+                                    if (String(BanCo[docCu][ngangCu - 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu - 1]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang phải
+                                if (ngangCu + 1 <= 8) {
+                                    if (String(BanCo[docCu][ngangCu + 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu + 1]);
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 'totden5': {
+                            let docCu = Math.round(this.oldPos.top / 75) + 3;
+                            let ngangCu = Math.round(this.oldPos.left / 73) + 8;
+                            if (docCu <= 4) {
+                                // Đi thẳng
+                                if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                    this.CoTheDi.push([docCu + 1, ngangCu]);
+                                }
+                                else {
+                                    if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                }
+                            }
+                            else {
+                                // Đi thẳng
+                                if (docCu + 1 <= 9) {
+                                    if (String(BanCo[docCu + 1][ngangCu]) === "") {
+                                        this.CoTheDi.push([docCu + 1, ngangCu]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu + 1][ngangCu]).includes("do")) {
+                                            this.CoTheDi.push([docCu + 1, ngangCu]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang trái
+                                if (ngangCu - 1 >= 0) {
+                                    if (String(BanCo[docCu][ngangCu - 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu - 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu - 1]).includes("do")) {
+                                            this.CoTheDi.push([docCu, ngangCu - 1]);
+                                        }
+                                    }
+                                }
+                                // Đi ngang phải
+                                if (ngangCu + 1 <= 8) {
+                                    if (String(BanCo[docCu][ngangCu + 1]) === "") {
+                                        this.CoTheDi.push([docCu, ngangCu + 1]);
+                                    }
+                                    else {
+                                        if (String(BanCo[docCu][ngangCu + 1]).includes("do")) {
                                             this.CoTheDi.push([docCu, ngangCu + 1]);
                                         }
                                     }
@@ -1795,7 +2618,7 @@
                             }
                             break;
                         }
-
+                        // [0, 0]
                         case 'xeden1': {
                             if (pos.left < 0 || pos.left > 585 || pos.top < -5 || pos.top > 670) {
                                 $('#xeden1').offset({ top: x, left: y });
@@ -1803,36 +2626,39 @@
                             }
                             else {
                                 let X = 0, Y = 0;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
 
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 0;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 0;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "xeden1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xeden1').offset({ top: X + xeDen1[0], left: Y + xeDen1[1] });
+                                    return;
                                 }
                                 else {
-                                    if (Math.abs(pos.left) % 75 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
-                                    }
+                                    $('#xeden1').offset({ top: x, left: y });
+                                    return;
                                 }
-
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) + 75 : -LamTron(this.oldPos.top, 75) - 75;
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
-                                    }
-                                }
-
-                                $('#xeden1').offset({ top: X + xeDen1[0], left: Y + xeDen1[1] });
                                 return;
                             }
                             break;
                         }
+                        // [0, 8]
                         case 'xeden2': {
                             if (pos.left < -585 || pos.left > 5 || pos.top < -5 || pos.top > 670) {
                                 $('#xeden2').offset({ top: x, left: y });
@@ -1840,73 +2666,81 @@
                             }
                             else {
                                 let X = 0, Y = 0;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
 
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 8;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 8;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "xeden2";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xeden2').offset({ top: X + xeDen2[0], left: Y + xeDen2[1] });
+                                    return;
                                 }
                                 else {
-                                    if (Math.abs(pos.left) % 75 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
-                                    }
+                                    $('#xeden2').offset({ top: x, left: y });
+                                    return;
                                 }
-
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) + 75 : -LamTron(this.oldPos.top, 75) - 75;
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
-                                    }
-                                }
-
-                                $('#xeden2').offset({ top: X + xeDen2[0], left: Y + xeDen2[1] });
                                 return;
                             }
                             break;
                         }
+                        // [2, 1]
                         case 'phaoden1': {
-                            if (pos.left < -75 || pos.left > 515 || pos.top < -150 || pos.top > 525) {
+                            console.log(this.CoTheDi);
+                            if (pos.left < -75 || pos.left > 515 || pos.top < -160 || pos.top > 525) {
                                 $('#phaoden1').offset({ top: x, left: y });
                                 return;
                             }
                             else {
                                 let X = 0, Y = 0;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
 
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 75) : -LamTron(this.oldPos.left, 75);
+                                let docMoi = Math.round(X / 75) + 2;
+                                let ngangMoi = Math.round(Y / 71) + 1;
+                                let docCu = Math.round(this.oldPos.top / 75) + 2;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 1;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "phaoden1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#phaoden1').offset({ top: X + phaoDen1[0], left: Y + phaoDen1[1] });
+                                    return;
                                 }
                                 else {
-                                    if (Math.abs(pos.left) % 75 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
-                                    }
+                                    $('#phaoden1').offset({ top: x, left: y });
+                                    return;
                                 }
 
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
-                                    }
-                                }
-
-                                $('#phaoden1').offset({ top: X + phaoDen1[0], left: Y + phaoDen1[1] });
                                 return;
                             }
                             break;
                         }
+                        // [2, 7]
                         case 'phaoden2': {
                             if (pos.left < -515 || pos.left > 75 || pos.top < -150 || pos.top > 525) {
                                 $('#phaoden2').offset({ top: x, left: y });
@@ -1914,35 +2748,40 @@
                             }
                             else {
                                 let X = 0, Y = 0;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
 
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? this.oldPos.left : -this.oldPos.left;
-                                }
-                                else {
-                                    if (Math.abs(pos.left) % 75 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) + 75 : -LamTron(pos.left, 75) - 75;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 75) : -LamTron(pos.left, 75);
-                                    }
-                                }
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? this.oldPos.top : -this.oldPos.top;
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                let docMoi = Math.round(X / 75) + 2;
+                                let ngangMoi = Math.round(Y / 71) + 7;
+                                let docCu = Math.round(this.oldPos.top / 75) + 2;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 7;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
                                     }
                                 }
 
-                                $('#phaoden2').offset({ top: X + phaoDen2[0], left: Y + phaoDen2[1] });
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "phaoden2";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#phaoden2').offset({ top: X + phaoDen2[0], left: Y + phaoDen2[1] });
+                                    return;
+                                }
+                                else {
+                                    $('#phaoden2').offset({ top: x, left: y });
+                                    return;
+                                }
+
                                 return;
                             }
                             break;
                         }
+                        // [0, 1]
                         case 'maden1': {
                             if (pos.left < -75 || pos.left > 515 || pos.top < -10 || pos.top > 675) {
                                 $('#maden1').offset({ top: x, left: y });
@@ -2004,6 +2843,7 @@
                             }
                             break;
                         }
+                        // [0, 7]
                         case 'maden2': {
                             if (pos.left < -515 || pos.left > 75 || pos.top < -10 || pos.top > 675) {
                                 $('#maden2').offset({ top: x, left: y });
@@ -2065,47 +2905,70 @@
                             }
                             break;
                         }
+                        // [0, 4] 
                         case 'tuongden': {
                             if (pos.left < -75 || pos.left > 75 || pos.top < -10 || pos.top > 150) {
                                 $('#tuongden').offset({ top: x, left: y });
                                 return;
                             }
                             else {
+                                let X = 0, Y = 0;
                                 if (Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
                                     $('#tuongden').offset({ top: x, left: y });
                                     return;
                                 }
-                                let X = 0, Y = 0;
-
                                 if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left;
+                                    Y = Math.round(this.oldPos.left / 71) * 71;
                                 }
                                 else {
-                                    if (Math.abs(pos.left - this.oldPos.left) > 35) {
-                                        Y = pos.left > this.oldPos.left ? (Math.ceil(this.oldPos.left / 75) * 75) + 75 : (Math.ceil(this.oldPos.left / 75) * 75) - 75;
+                                    if (Math.abs(pos.left) % 71 > 35) {
+                                        Y = pos.left > 0 ? Math.ceil(Math.abs(pos.left) / 73) * 73 : -(Math.ceil(Math.abs(pos.left) / 73) * 73);
                                     }
                                     else {
-                                        Y = this.oldPos.left;
+                                        Y = pos.left > 0 ? Math.floor(Math.abs(pos.left) / 73) * 73 : -(Math.floor(Math.abs(pos.left) / 73) * 73);
                                     }
                                 }
-
                                 if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top;
+                                    X = Math.round(this.oldPos.top / 75) * 75;
                                 }
                                 else {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        X = pos.top > this.oldPos.top ? (Math.ceil(this.oldPos.top / 75) * 75) + 75 : (Math.ceil(this.oldPos.top / 75) * 75) - 75;
+                                    if (Math.abs(pos.top) % 75 > 35) {
+                                        X = pos.top > 0 ? Math.ceil(Math.abs(pos.top) / 75) * 75 : -(Math.ceil(Math.abs(pos.top) / 75) * 75);
                                     }
                                     else {
-                                        X = this.oldPos.top;
+                                        X = pos.top > 0 ? Math.floor(Math.abs(pos.top) / 75) * 75 : -(Math.floor(Math.abs(pos.top) / 75) * 75);
                                     }
                                 }
 
-                                $('#tuongden').offset({ top: X + tuongDen[0], left: Y + tuongDen[1] });
-                                return;
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 4;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 4;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "tuongden";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#tuongden').offset({ top: X + tuongDen[0], left: Y + tuongDen[1] });
+                                    return;
+                                }
+                                else {
+                                    $('#tuongden').offset({ top: x, left: y });
+                                    return;
+                                }
                             }
                             break;
                         }
+                        // [0, 3]
                         case 'siden1': {
                             if (pos.left < -5 || pos.left > 155 || pos.top < -5 || pos.top > 150) {
                                 $('#siden1').offset({ top: x, left: y });
@@ -2114,67 +2977,88 @@
                             else {
                                 let X = 0, Y = 0;
                                 if (Math.abs(this.oldPos.top - pos.top) < 25 || Math.abs(this.oldPos.left - pos.left) < 25) {
-                                    $('#siden1').offset({ top: x, left: y });
+                                    X = this.oldPos.top - (this.oldPos.top % 75);
+                                    Y = this.oldPos.left - (this.oldPos.left % 75);
+                                }
+                                else {
+                                    X = this.oldPos.top > pos.top ? Math.round(this.oldPos.top / 75) * 75 - 75 : Math.round(this.oldPos.top / 75) * 75 + 75;
+                                    Y = this.oldPos.left > pos.left ? Math.round(this.oldPos.left / 75) * 75 - 75 : Math.round(this.oldPos.left / 75) * 75 + 75;
+                                }
+
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 3;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 3;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "siden1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#siden1').offset({ top: X + siDen1[0], left: Y + siDen1[1] });
                                     return;
                                 }
                                 else {
-                                    if (this.oldPos.top < pos.top) {
-                                        if (this.oldPos.left < pos.left) {
-                                            X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
-                                            Y = this.oldPos.left + 75;
-                                        }
-                                        else {
-                                            X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
-                                            Y = this.oldPos.left - 75;
-                                        }
-                                    }
-                                    else {
-                                        if (this.oldPos.left < pos.left) {
-                                            X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
-                                            Y = this.oldPos.left + 75;
-                                        }
-                                        else {
-                                            X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
-                                            Y = this.oldPos.left - 75;
-                                        }
-                                    }
+                                    $('#siden1').offset({ top: x, left: y });
+                                    return;
                                 }
-                                $('#siden1').offset({ top: X + siDen1[0], left: Y + siDen1[1] });
-                                return;
                             }
                             break;
                         }
+                        // [0, 5]
                         case 'siden2': {
                             if (pos.left < -155 || pos.left > 0 || pos.top < -5 || pos.top > 150) {
                                 $('#siden2').offset({ top: x, left: y });
                                 return;
                             }
                             else {
-                                if (this.oldPos.top < pos.top) {
-                                    if (this.oldPos.left < pos.left) {
-                                        X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
-                                        Y = this.oldPos.left + 75;
-                                    }
-                                    else {
-                                        X = (Math.ceil(this.oldPos.top / 75) * 75) + 75;
-                                        Y = this.oldPos.left - 75;
-                                    }
+                                let X = 0, Y = 0;
+                                if (Math.abs(this.oldPos.top - pos.top) < 25 || Math.abs(this.oldPos.left - pos.left) < 25) {
+                                    X = this.oldPos.top - (this.oldPos.top % 75);
+                                    Y = this.oldPos.left - (this.oldPos.left % 75);
                                 }
                                 else {
-                                    if (this.oldPos.left < pos.left) {
-                                        X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
-                                        Y = this.oldPos.left + 75;
-                                    }
-                                    else {
-                                        X = (Math.ceil(this.oldPos.top / 75) * 75) - 75;
-                                        Y = this.oldPos.left - 75;
+                                    X = this.oldPos.top > pos.top ? Math.round(this.oldPos.top / 75) * 75 - 75 : Math.round(this.oldPos.top / 75) * 75 + 75;
+                                    Y = this.oldPos.left > pos.left ? Math.round(this.oldPos.left / 75) * 75 - 75 : Math.round(this.oldPos.left / 75) * 75 + 75;
+                                }
+
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 5;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 5;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
                                     }
                                 }
-                                $('#siden2').offset({ top: X + siDen2[0], left: Y + siDen2[1] });
-                                return;
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "siden2";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#siden2').offset({ top: X + siDen2[0], left: Y + siDen2[1] });
+                                    return;
+                                }
+                                else {
+                                    $('#siden2').offset({ top: x, left: y });
+                                    return;
+                                }
                             }
                             break;
                         }
+                        // [0, 2]
                         case 'tuongden1': {
                             if (pos.left < -155 || pos.left > 445 || pos.top < -10 || pos.top > 295) {
                                 $('#tuongden1').offset({ top: x, left: y });
@@ -2182,37 +3066,44 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(this.oldPos.top - pos.top) < 75 || Math.abs(this.oldPos.left - pos.left) < 75) {
-                                    $('#tuongden1').offset({ top: x, left: y });
+                                if (Math.abs(this.oldPos.top - pos.top) < 55 || Math.abs(this.oldPos.left - pos.left) < 55) {
+                                    X = this.oldPos.top - (this.oldPos.top % 146);
+                                    Y = this.oldPos.left - (this.oldPos.left % 146);
+                                }
+                                else {
+                                    X = this.oldPos.top > pos.top ? Math.round(this.oldPos.top / 146) * 146 - 146 : Math.round(this.oldPos.top / 146) * 146 + 146;
+                                    Y = this.oldPos.left > pos.left ? Math.round(this.oldPos.left / 146) * 146 - 146 : Math.round(this.oldPos.left / 146) * 146 + 146;
+                                }
+
+                                let docMoi = Math.round(X / 75) + 0;
+                                let ngangMoi = Math.round(Y / 71) + 2;
+                                let docCu = Math.round(this.oldPos.top / 75) + 0;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 2;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "tuongden1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#tuongden1').offset({ top: X + tuongDen1[0], left: Y + tuongDen1[1] });
                                     return;
                                 }
                                 else {
-                                    if (this.oldPos.top < pos.top) {
-                                        if (this.oldPos.left < pos.left) {
-                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
-                                            Y = this.oldPos.left + 150;
-                                        }
-                                        else {
-                                            X = (Math.ceil(this.oldPos.top / 150) * 150) + 150;
-                                            Y = this.oldPos.left - 150;
-                                        }
-                                    }
-                                    else {
-                                        if (this.oldPos.left < pos.left) {
-                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
-                                            Y = this.oldPos.left + 150;
-                                        }
-                                        else {
-                                            X = (Math.ceil(this.oldPos.top / 150) * 150) - 150;
-                                            Y = this.oldPos.left - 150;
-                                        }
-                                    }
+                                    $('#tuongden1').offset({ top: x, left: y });
+                                    return;
                                 }
-                                $('#tuongden1').offset({ top: X + tuongDen1[0], left: Y + tuongDen1[1] });
-                                return;
                             }
                             break;
                         }
+                        // [0, 6]
                         case 'tuongden2': {
                             if (pos.left < -445 || pos.left > 150 || pos.top < -10 || pos.top > 295) {
                                 $('#tuongden2').offset({ top: x, left: y });
@@ -2251,258 +3142,228 @@
                             }
                             break;
                         }
+                        // [3, 0]
                         case 'totden1': {
                             if (pos.left < -20 || pos.left > 595 || pos.top < -10 || pos.top > 460) {
                                 $('#totden1').offset({ top: x, left: y });
                                 return;
                             }
+                            if (pos.top < this.oldPos.top) {
+                                $('#totden1').offset({ top: x, left: y });
+                                return;
+                            }
                             else {
-                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
-                                    $('#totden1').offset({ top: x, left: y });
-                                    return;
-                                }
-                                if (pos.top < 75) {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        $('#totden1').offset({ top: totDen1[0] + 75, left: y });
-                                        return;
-                                    }
-                                    else {
-                                        $('#totden1').offset({ top: x, left: y });
-                                        return;
-                                    }
-                                }
-                                else {
-                                    let X = 0, Y = 0;
-                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
-                                        Y = this.oldPos.left;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
-                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
-                                        }
-                                        else {
-                                            Y = this.oldPos.left;
-                                        }
-                                    }
-                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                        X = Math.ceil(this.oldPos.top / 75) * 75;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
-                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                        else {
-                                            X = Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                    }
+                                let X = 0, Y = 0;
 
+                                X = Math.abs(this.oldPos.left - pos.left) > 45 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 45 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docMoi = Math.round(X / 75) + 3;
+                                let ngangMoi = Math.round(Y / 73) + 0;
+                                let docCu = Math.round(this.oldPos.top / 75) + 3;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 0;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "totden1";
+                                    BanCo[docCu][ngangCu] = "";
                                     $('#totden1').offset({ top: X + totDen1[0], left: Y + totDen1[1] });
                                     return;
                                 }
+                                else {
+                                    $('#totden1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                return;
                             }
                             break;
                         }
+                        // [3, 2]
                         case 'totden2': {
                             if (pos.left < -160 || pos.left > 440 || pos.top < -10 || pos.top > 460) {
                                 $('#totden2').offset({ top: x, left: y });
                                 return;
                             }
+                            if (pos.top < this.oldPos.top) {
+                                $('#totden2').offset({ top: x, left: y });
+                                return;
+                            }
                             else {
-                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
-                                    $('#totden2').offset({ top: x, left: y });
-                                    return;
-                                }
-                                if (pos.top < 75) {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        $('#totden2').offset({ top: totDen2[0] + 75, left: y });
-                                        return;
-                                    }
-                                    else {
-                                        $('#totden2').offset({ top: x, left: y });
-                                        return;
-                                    }
-                                }
-                                else {
-                                    let X = 0, Y = 0;
-                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
-                                        Y = this.oldPos.left;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
-                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
-                                        }
-                                        else {
-                                            Y = this.oldPos.left;
-                                        }
-                                    }
-                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                        X = Math.ceil(this.oldPos.top / 75) * 75;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
-                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                        else {
-                                            X = Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                    }
+                                let X = 0, Y = 0;
 
+                                X = Math.abs(this.oldPos.left - pos.left) > 45 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 45 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docMoi = Math.round(X / 75) + 3;
+                                let ngangMoi = Math.round(Y / 73) + 2;
+                                let docCu = Math.round(this.oldPos.top / 75) + 3;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 2;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "totden2";
+                                    BanCo[docCu][ngangCu] = "";
                                     $('#totden2').offset({ top: X + totDen2[0], left: Y + totDen2[1] });
                                     return;
                                 }
+                                else {
+                                    $('#totden2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                return;
                             }
                             break;
                         }
+                        // [3, 4]
                         case 'totden3': {
                             if (pos.left < -300 || pos.left > 300 || pos.top < -10 || pos.top > 460) {
                                 $('#totden3').offset({ top: x, left: y });
                                 return;
                             }
+                            if (pos.top < this.oldPos.top) {
+                                $('#totden3').offset({ top: x, left: y });
+                                return;
+                            }
                             else {
-                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
-                                    $('#totden3').offset({ top: x, left: y });
-                                    return;
-                                }
-                                if (pos.top < 75) {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        $('#totden3').offset({ top: totDen3[0] + 75, left: y });
-                                        return;
-                                    }
-                                    else {
-                                        $('#totden3').offset({ top: x, left: y });
-                                        return;
-                                    }
-                                }
-                                else {
-                                    let X = 0, Y = 0;
-                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
-                                        Y = this.oldPos.left;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
-                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
-                                        }
-                                        else {
-                                            Y = this.oldPos.left;
-                                        }
-                                    }
-                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                        X = Math.ceil(this.oldPos.top / 75) * 75;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
-                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                        else {
-                                            X = Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                    }
+                                let X = 0, Y = 0;
 
+                                X = Math.abs(this.oldPos.left - pos.left) > 45 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 45 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docMoi = Math.round(X / 75) + 3;
+                                let ngangMoi = Math.round(Y / 73) + 4;
+                                let docCu = Math.round(this.oldPos.top / 75) + 3;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 4;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "totden3";
+                                    BanCo[docCu][ngangCu] = "";
                                     $('#totden3').offset({ top: X + totDen3[0], left: Y + totDen3[1] });
                                     return;
                                 }
+                                else {
+                                    $('#totden3').offset({ top: x, left: y });
+                                    return;
+                                }
+                                return;
                             }
                             break;
                         }
+                        // [3, 6]
                         case 'totden4': {
                             if (pos.left < -450 || pos.left > 150 || pos.top < -10 || pos.top > 460) {
                                 $('#totden4').offset({ top: x, left: y });
                                 return;
                             }
+                            if (pos.top < this.oldPos.top) {
+                                $('#totden4').offset({ top: x, left: y });
+                                return;
+                            }
                             else {
-                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
-                                    $('#totden4').offset({ top: x, left: y });
-                                    return;
-                                }
-                                if (pos.top < 75) {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        $('#totden4').offset({ top: totDen4[0] + 75, left: y });
-                                        return;
-                                    }
-                                    else {
-                                        $('#totden4').offset({ top: x, left: y });
-                                        return;
-                                    }
-                                }
-                                else {
-                                    let X = 0, Y = 0;
-                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
-                                        Y = this.oldPos.left;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
-                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
-                                        }
-                                        else {
-                                            Y = this.oldPos.left;
-                                        }
-                                    }
-                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                        X = Math.ceil(this.oldPos.top / 75) * 75;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
-                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                        else {
-                                            X = Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                    }
+                                let X = 0, Y = 0;
 
+                                X = Math.abs(this.oldPos.left - pos.left) > 45 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 45 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docMoi = Math.round(X / 75) + 3;
+                                let ngangMoi = Math.round(Y / 73) + 6;
+                                let docCu = Math.round(this.oldPos.top / 75) + 3;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 6;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "totden4";
+                                    BanCo[docCu][ngangCu] = "";
                                     $('#totden4').offset({ top: X + totDen4[0], left: Y + totDen4[1] });
                                     return;
                                 }
+                                else {
+                                    $('#totden4').offset({ top: x, left: y });
+                                    return;
+                                }
+                                return;
                             }
                             break;
                         }
+                        // [3, 8]
                         case 'totden5': {
                             if (pos.left < -590 || pos.left > 10 || pos.top < -10 || pos.top > 460) {
                                 $('#totden5').offset({ top: x, left: y });
                                 return;
                             }
+                            if (pos.top < this.oldPos.top) {
+                                $('#totden5').offset({ top: x, left: y });
+                                return;
+                            }
                             else {
-                                if (this.oldPos.top > pos.top || Math.abs(this.oldPos.top - pos.top) > 80 || Math.abs(this.oldPos.left - pos.left) > 80) {
-                                    $('#totden5').offset({ top: x, left: y });
-                                    return;
-                                }
-                                if (pos.top < 75) {
-                                    if (Math.abs(pos.top - this.oldPos.top) > 35) {
-                                        $('#totden5').offset({ top: totDen5[0] + 75, left: y });
-                                        return;
-                                    }
-                                    else {
-                                        $('#totden5').offset({ top: x, left: y });
-                                        return;
-                                    }
-                                }
-                                else {
-                                    let X = 0, Y = 0;
-                                    if (Math.abs(this.oldPos.top - pos.top) > 30) {
-                                        Y = this.oldPos.left;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.left - this.oldPos.left) > 30) {
-                                            Y = pos.left > this.oldPos.left ? Math.ceil(this.oldPos.left / 73) * 73 + 73 : Math.ceil(this.oldPos.left / 73) * 73 - 73;
-                                        }
-                                        else {
-                                            Y = this.oldPos.left;
-                                        }
-                                    }
-                                    if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                        X = Math.ceil(this.oldPos.top / 75) * 75;
-                                    }
-                                    else {
-                                        if (Math.abs(pos.top - this.oldPos.top) % 75 > 30) {
-                                            X = pos.top > this.oldPos.top ? Math.ceil(this.oldPos.top / 75) * 75 + 75 : Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                        else {
-                                            X = Math.ceil(this.oldPos.top / 75) * 75;
-                                        }
-                                    }
+                                let X = 0, Y = 0;
 
+                                X = Math.abs(this.oldPos.left - pos.left) > 45 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 45 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docMoi = Math.round(X / 75) + 3;
+                                let ngangMoi = Math.round(Y / 73) + 8;
+                                let docCu = Math.round(this.oldPos.top / 75) + 3;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 8;
+
+                                let isContain = false;
+                                for (let i = 0; i < this.CoTheDi.length; ++i) {
+                                    if (parseInt(this.CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(this.CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "totden5";
+                                    BanCo[docCu][ngangCu] = "";
                                     $('#totden5').offset({ top: X + totDen5[0], left: Y + totDen5[1] });
                                     return;
                                 }
+                                else {
+                                    $('#totden4').offset({ top: x, left: y });
+                                    return;
+                                }
+                                return;
                             }
                             break;
                         }
