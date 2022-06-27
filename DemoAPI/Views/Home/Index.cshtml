@@ -72,6 +72,20 @@
     const totDo4 = [800, 405], totDen4 = [1605, 405];
     const totDo5 = [850, 405], totDen5 = [1655, 405];
 
+    let BanCo =
+        [
+            ['xeden1', 'maden1', 'tuongden1', 'siden1', 'tuongden', 'siden2', 'tuongden2', 'maden2', 'xeden2'],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", 'phaoden1', "", "", "", "", "", 'phaoden2', ""],
+            ['totden1', "", 'totden2', "", 'totden3', "", 'totden4', "", 'totden5'],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ['totdo1', "", 'totdo2', "", 'totdo3', "", 'totdo4', "", 'totdo5'],
+            ["", 'phaodo1', "", "", "", "", "", 'phaodo2', ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ['xedo1', 'mado1', 'tuongdo1', 'sido1', 'tuongdo', 'sido2', 'tuongdo2', 'mado2', 'xedo2']
+        ];
+
     function LamTron(a, b) {
         let temp = Math.abs(a);
         let temp2 = Math.abs(b);
@@ -141,42 +155,80 @@
                     const pos = ui.position;
 
                     switch (ui.helper.attr('id')) {
+                        // [9, 0] -> Xong
                         case 'xedo1': {
-                            if (pos.left < -10 || pos.left > 595 || pos.top > 8 || pos.top < -675) {
+                            if (pos.left < -15 || pos.left > 595 || pos.top > 8 || pos.top < -685) {
                                 $('#xedo1').offset({ top: x, left: y });
                                 return;
                             }
                             else {
                                 let X = 0, Y = 0;
-
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
-                                }
-                                else {
-                                    if (Math.abs(pos.left) % 71 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
-                                    }
-                                }
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
-                                    }
-                                }
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top) : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left) : Y = Math.round(pos.left / 71) * 71;
 
                                 $('#xedo1').offset({ top: X + xeDo1[0], left: Y + xeDo1[1] });
-                                return;
+
+                                let docCu = Math.round(this.oldPos.top / 75) + 9;
+                                let ngangCu = Math.round(this.oldPos.left / 71);
+                                let docMoi = Math.round(X / 75) + 9;
+                                let ngangMoi = Math.round(Y / 71);
+
+                                if (docCu > docMoi) {
+                                    for (let i = docCu - 1; i > docMoi; --i) {
+                                        if (BanCo[i][ngangMoi] !== "") {
+                                            $('#xedo1').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+                                else if (docCu < docMoi) {
+                                    for (let i = docCu + 1; i < docMoi; ++i) {
+                                        if (BanCo[i][ngangMoi] !== "") {
+                                            $('#xedo1').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                if (ngangCu > ngangMoi) {
+                                    for (let i = ngangCu - 1; i > ngangMoi; --i) {
+                                        if (BanCo[docMoi][i] !== "") {
+                                            $('#xedo1').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+                                else if (ngangCu < ngangMoi) {
+                                    for (let i = ngangCu + 1; i < ngangMoi; ++i) {
+                                        if (BanCo[docMoi][i] !== "") {
+                                            $('#xedo1').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                if (String(BanCo[docMoi][ngangMoi]).includes("do")) {
+                                    $('#xedo1').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else if (String(BanCo[docMoi][ngangMoi]).includes("den")) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "xedo1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xedo1').offset({ top: X + xeDo1[0], left: Y + xeDo1[1] });
+                                    console.log(BanCo);
+                                    return;
+                                }
+                                else {
+                                    BanCo[docMoi][ngangMoi] = "xedo1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xedo1').offset({ top: X + xeDo1[0], left: Y + xeDo1[1] });
+                                    return;
+                                }
                             }
                             break;
                         }
+                        // [9, 8] -> Xong
                         case 'xedo2': {
                             if (pos.left < -585 || pos.left > 15 || pos.top > 8 || pos.top < -675) {
                                 $('#xedo2').offset({ top: x, left: y });
@@ -184,34 +236,73 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
-                                }
-                                else {
-                                    if (Math.abs(pos.left) % 71 > 35) {
-                                        Y = pos.left > 0 ? LamTron(this.oldPos.left, 71) + 71 : -LamTron(this.oldPos.left, 71) - 71;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
+
+                                let docCu = Math.round(this.oldPos.top / 75) + 9;
+                                let ngangCu = Math.round(this.oldPos.left / 73) + 8;
+                                let docMoi = Math.round(X / 75) + 9;
+                                let ngangMoi = Math.round(Y / 73) + 8;
+
+                                if (docCu > docMoi) {
+                                    for (let i = docCu - 1; i > docMoi; --i) {
+                                        if (BanCo[i][ngangMoi] !== "") {
+                                            $('#xedo2').offset({ top: x, left: y });
+                                            return;
+                                        }
                                     }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
-                                    }
                                 }
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                else if (docCu < docMoi) {
+                                    for (let i = docCu + 1; i < docMoi; ++i) {
+                                        if (BanCo[i][ngangMoi] !== "") {
+                                            $('#xedo2').offset({ top: x, left: y });
+                                            return;
+                                        }
                                     }
                                 }
 
-                                $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
+                                if (ngangCu > ngangMoi) {
+                                    for (let i = ngangCu - 1; i > ngangMoi; --i) {
+                                        if (BanCo[docMoi][i] !== "") {
+                                            $('#xedo2').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+                                else if (ngangCu < ngangMoi) {
+                                    for (let i = ngangCu + 1; i < ngangMoi; ++i) {
+                                        if (BanCo[docMoi][i] !== "") {
+                                            $('#xedo2').offset({ top: x, left: y });
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                if (String(BanCo[docMoi][ngangMoi]).includes("do")) {
+                                    $('#xedo2').offset({ top: x, left: y });
+                                    return;
+                                }
+                                else if (String(BanCo[docMoi][ngangMoi]).includes("den")) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "xedo2";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
+                                    console.log(BanCo);
+                                    return;
+                                }
+                                else {
+                                    BanCo[docMoi][ngangMoi] = "xedo2";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#xedo2').offset({ top: X + xeDo2[0], left: Y + xeDo2[1] });
+                                    return;
+                                }
                                 return;
                             }
                             break;
                         }
+                        // [7, 1]
                         case 'phaodo1': {
                             if (pos.left < -80 || pos.left > 520 || pos.top > 160 || pos.top < -530) {
                                 $('#phaodo1').offset({ top: x, left: y });
@@ -219,33 +310,153 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
-                                }
-                                else {
-                                    if (Math.abs(pos.left) % 71 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
+                                let docCu = Math.round(this.oldPos.top / 75) + 7;
+                                let ngangCu = Math.round(this.oldPos.left / 71) + 1;
+                                let docMoi = Math.round(X / 75) + 7;
+                                let ngangMoi = Math.round(Y / 71) + 1;
+                                console.log(docCu + "; " + ngangCu);
+                                console.log(docMoi + " ; " + ngangMoi)
+
+                                let CoTheDi = [];
+                                let temp = 0;
+                                let bienTren, bienDuoi, bienTrai, bienPhai;
+
+                                // Trên
+                                temp = docCu;
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    if (BanCo[i][ngangCu] === "") {
+                                        CoTheDi.push([i, ngangCu]);
+                                        bienTren = i;
                                     }
                                     else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
+                                        break;
                                     }
                                 }
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
+
+                                // Dưới
+                                temp = docCu;
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    if (BanCo[i][ngangCu] === "") {
+                                        CoTheDi.push([i, ngangCu]);
+                                        bienDuoi = i;
                                     }
                                     else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
+                                        break;
                                     }
                                 }
-                                $('#phaodo1').offset({ top: X + phaoDo1[0], left: Y + phaoDo1[1] });
+
+                                console.log(CoTheDi);
+
+                                // Trái
+                                temp = ngangCu;
+                                for (let i = temp - 1; i >= 0; --i) {
+                                    if (BanCo[docCu][i] === "") {
+                                        CoTheDi.push([docCu, i]);
+                                        bienTrai = i;
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                }
+
+                                // Phải
+                                /*temp = ngangCu;
+                                for (let i = temp + 1; i <= 9; ++i) {
+                                    if (BanCo[docCu][i] === "") {
+                                        CoTheDi.push([docCu, i]);
+                                        bienPhai = i;
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                }
+
+                                // Pháo ăn trên
+                                temp = bienTren;
+                                for (let i = temp - 2; i >= 0; --i) {
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        if (String(BanCo[i][ngangCu]).includes("den")) {
+                                            CoTheDi.push([i, ngangCu]);
+                                            break;
+                                        }
+                                        else {
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // Pháo ăn dưới
+                                temp = bienDuoi;
+                                for (let i = temp + 2; i <= 9; ++i) {
+                                    if (BanCo[i][ngangCu] !== "") {
+                                        if (String(BanCo[i][ngangCu]).includes("den")) {
+                                            CoTheDi.push([i, ngangCu]);
+                                            break;
+                                        }
+                                        else {
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // Pháo ăn trái
+                                temp = bienTrai;
+                                for (let i = temp - 2; i >= 0; --i) {
+                                    if (BanCo[docCu][i] !== "") {
+                                        if (String(BanCo[docCu][i]).includes("den")) {
+                                            CoTheDi.push([docCu, i]);
+                                            break;
+                                        }
+                                        else {
+                                            break;
+                                        }
+                                    } 
+                                }
+
+                                // Pháo ăn phải
+                                temp = bienPhai;
+                                for (let i = temp + 2; i <= 9; ++i) {
+                                    if (BanCo[docCu][i] !== "") {
+                                        if (String(BanCo[docCu][i]).includes("den")) {
+                                            CoTheDi.push([docCu, i]);
+                                            break;
+                                        }
+                                        else {
+                                            break;
+                                        }
+                                    }
+                                } */
+
+                                //console.log(CoTheDi);
+                                let isContain = false;
+                                for (let i = 0; i < CoTheDi.length; ++i) {
+                                    if (parseInt(CoTheDi[i][0]) == parseInt(docMoi)
+                                        && parseInt(CoTheDi[i][1]) == parseInt(ngangMoi)) {
+                                        isContain = true;
+                                        break;
+                                    }
+                                }
+
+                                if (isContain === true) {
+                                    $("#" + String(BanCo[docMoi][ngangMoi])).css("visibility", "hidden");
+                                    BanCo[docMoi][ngangMoi] = "phaodo1";
+                                    BanCo[docCu][ngangCu] = "";
+                                    $('#phaodo1').offset({ top: X + phaoDo1[0], left: Y + phaoDo1[1] });
+                                    return;
+                                }
+                                else {
+                                    $('#phaodo1').offset({ top: x, left: y });
+                                    return;
+                                }
+
                                 return;
                             }
                             break;
                         }
+                        // [7, 7]
                         case 'phaodo2': {
                             if (pos.left < -525 || pos.left > 80 || pos.top > 160 || pos.top < -530) {
                                 $('#phaodo2').offset({ top: x, left: y });
@@ -253,33 +464,15 @@
                             }
                             else {
                                 let X = 0, Y = 0;
-                                if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
-                                }
-                                else {
-                                    if (Math.abs(pos.left) % 71 > 35) {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) + 71 : -LamTron(pos.left, 71) - 71;
-                                    }
-                                    else {
-                                        Y = pos.left > 0 ? LamTron(pos.left, 71) : -LamTron(pos.left, 71);
-                                    }
-                                }
-                                if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
-                                }
-                                else {
-                                    if (Math.abs(pos.top) % 75 > 35) {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) + 75 : -LamTron(pos.top, 75) - 75;
-                                    }
-                                    else {
-                                        X = pos.top > 0 ? LamTron(pos.top, 75) : -LamTron(pos.top, 75);
-                                    }
-                                }
+                                X = Math.abs(this.oldPos.left - pos.left) > 35 ? Math.round(this.oldPos.top / 75) * 75 : Math.round(pos.top / 75) * 75;
+                                Y = Math.abs(this.oldPos.top - pos.top) > 35 ? Math.round(this.oldPos.left / 73) * 73 : Math.round(pos.left / 73) * 73;
+
                                 $('#phaodo2').offset({ top: X + phaoDo2[0], left: Y + phaoDo2[1] });
                                 return;
                             }
                             break;
                         }
+                        // [9, 1]
                         case 'mado1': {
                             if (pos.left < -80 || pos.left > 515 || pos.top > 5 || pos.top < -675) {
                                 $('#mado1').offset({ top: x, left: y });
@@ -342,6 +535,7 @@
                             }
                             break;
                         }
+                        // [9, 7]
                         case 'mado2': {
                             if (pos.left < -520 || pos.left > 75 || pos.top > 5 || pos.top < -675) {
                                 $('#mado2').offset({ top: x, left: y });
@@ -404,6 +598,7 @@
                             }
                             break;
                         }
+                        // [9, 4]
                         case 'tuongdo': {
                             if (pos.left < -80 || pos.left > 80 || pos.top < -155 || pos.top > 5) {
                                 $('#tuongdo').offset({ top: x, left: y });
@@ -416,7 +611,7 @@
                                     return;
                                 }
                                 if (Math.abs(this.oldPos.top - pos.top) > 35) {
-                                    Y = this.oldPos.left > 0 ? LamTron(this.oldPos.left, 71) : -LamTron(this.oldPos.left, 71);
+                                    Y = Math.round(this.oldPos.left / 71) * 71;
                                 }
                                 else {
                                     if (Math.abs(pos.left) % 71 > 35) {
@@ -427,7 +622,7 @@
                                     }
                                 }
                                 if (Math.abs(this.oldPos.left - pos.left) > 35) {
-                                    X = this.oldPos.top > 0 ? LamTron(this.oldPos.top, 75) : -LamTron(this.oldPos.top, 75);
+                                    X = Math.round(this.oldPos.top / 75) * 75;
                                 }
                                 else {
                                     if (Math.abs(pos.top) % 75 > 35) {
@@ -443,6 +638,7 @@
                             }
                             break;
                         }
+                        // [9, 3]
                         case 'sido1': {
                             if (pos.left < -5 || pos.left > 155 || pos.top < -160 || pos.top > 0) {
                                 $('#sido1').offset({ top: x, left: y });
@@ -463,6 +659,7 @@
                             }
                             break;
                         }
+                        // [9, 5]
                         case 'sido2': {
                             if (pos.left < -155 || pos.left > 5 || pos.top > 5 || pos.top < -155) {
                                 $('#sido2').offset({ top: x, left: y });
@@ -484,6 +681,7 @@
                             }
                             break;
                         }
+                        // [9, 2]
                         case 'tuongdo1': {
                             if (pos.left < -160 || pos.left > 445 || pos.top > 5 || pos.top < -305) {
                                 $('#tuongdo1').offset({ top: x, left: y });
@@ -505,6 +703,7 @@
                             }
                             break;
                         }
+                        // [9, 6]
                         case 'tuongdo2': {
                             if (pos.left < -445 || pos.left > 155 || pos.top > 5 || pos.top < -305) {
                                 $('#tuongdo2').offset({ top: x, left: y });
@@ -526,6 +725,7 @@
                             }
                             break;
                         }
+                        // [6, 0]
                         case 'totdo1': {
                             if (pos.left < -10 || pos.left > 585 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo1').offset({ top: x, left: y });
@@ -577,6 +777,7 @@
                             }
                             break;
                         }
+                        // [6, 2]
                         case 'totdo2': {
                             if (pos.left < -150 || pos.left > 440 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo2').offset({ top: x, left: y });
@@ -628,6 +829,7 @@
                             }
                             break;
                         }
+                        // [6, 4]
                         case 'totdo3': {
                             if (pos.left < -295 || pos.left > 295 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo3').offset({ top: x, left: y });
@@ -679,6 +881,7 @@
                             }
                             break;
                         }
+                        // [6, 6]
                         case 'totdo4': {
                             if (pos.left < -440 || pos.left > 150 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo4').offset({ top: x, left: y });
@@ -730,6 +933,7 @@
                             }
                             break;
                         }
+                        // [6, 8]
                         case 'totdo5': {
                             if (pos.left < -580 || pos.left > 10 || pos.top > 5 || pos.top < -455) {
                                 $('#totdo5').offset({ top: x, left: y });
